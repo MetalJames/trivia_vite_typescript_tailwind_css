@@ -1,6 +1,8 @@
 import React, { useEffect, useState } from "react";
-import QuestionsList from "./components/QuestionsList";
 import { fetchFromAPI, BASE_URL } from "./fetchMongo";
+import Home from "./pages/Home";
+import Game from "./pages/Game";
+import { BrowserRouter, Route, Routes } from "react-router-dom";
 
 interface Question {
   QuestionID: string;
@@ -9,6 +11,9 @@ interface Question {
 
 const App: React.FC = () => {
   const [questions, setQuestions] = useState<Question[]>([]);
+  const [playerOneName, setPlayerOneName] = useState('Player One');
+  const [playerTwoName, setPlayerTwoName] = useState('Player Two');
+  const [multiplayerEnabled, setMultiplayerEnabled] = useState(false);
 
   useEffect(() => {
     const fetchData = async () => {
@@ -24,8 +29,13 @@ const App: React.FC = () => {
   }, []);
 
   return (
-    <div className="App">
-      <QuestionsList questions={questions} />
+    <div>
+      <BrowserRouter>
+        <Routes>
+          <Route path="/" element={<Home setPlayerOneName={setPlayerOneName}  setPlayerTwoName={setPlayerTwoName} setMultiplayerEnabled={setMultiplayerEnabled} multiplayerEnabled={multiplayerEnabled} />} />
+          <Route path="game" element={<Game playerOneName={playerOneName}  playerTwoName={playerTwoName} multiplayerEnabled={multiplayerEnabled} questions={questions} />} />
+        </Routes>
+      </BrowserRouter>
     </div>
   );
 };
