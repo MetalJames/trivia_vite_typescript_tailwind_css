@@ -18,9 +18,11 @@ const Game = (props: GameStuff) => {
 
     const { questions, playerOneName, playerTwoName, multiplayerEnabled, numberOfQuestions } = props;
 
-    const selectedQuestions = useMemo(() => {
+    const [playerOneQuestions, playerTwoQuestions] = useMemo(() => {
         const shuffledQuestions = [...questions].sort(() => 0.5 - Math.random());
-        return shuffledQuestions.slice(0, numberOfQuestions);
+        const playerOneQuestions = shuffledQuestions.slice(0, numberOfQuestions);
+        const playerTwoQuestions = shuffledQuestions.slice(numberOfQuestions, numberOfQuestions *2);
+        return [playerOneQuestions, playerTwoQuestions];
     }, [questions, numberOfQuestions]);
 
     return (
@@ -28,12 +30,12 @@ const Game = (props: GameStuff) => {
             {/* player one section */}
             <div>
                 <h1>{playerOneName}</h1>
-                <QuestionsList questions={selectedQuestions} />
+                <QuestionsList questions={playerOneQuestions} />
             </div>
             {/* player two section */}
             <div>
                 {multiplayerEnabled && <h2>{playerTwoName}</h2>}
-                <QuestionsList questions={selectedQuestions} />
+                <QuestionsList questions={playerTwoQuestions} />
             </div>
         </div>
     );
