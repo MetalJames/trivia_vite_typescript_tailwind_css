@@ -1,3 +1,4 @@
+import { useMemo } from "react";
 import QuestionsList from "../components/QuestionsList";
 
 type GameStuff = {
@@ -5,6 +6,7 @@ type GameStuff = {
     playerOneName: string;
     playerTwoName: string;
     multiplayerEnabled: boolean;
+    numberOfQuestions: number;
 };
 
 type Question = {
@@ -14,15 +16,25 @@ type Question = {
 
 const Game = (props: GameStuff) => {
 
-    const { questions,playerOneName, playerTwoName, multiplayerEnabled } = props;
+    const { questions, playerOneName, playerTwoName, multiplayerEnabled, numberOfQuestions } = props;
+
+    const selectedQuestions = useMemo(() => {
+        const shuffledQuestions = [...questions].sort(() => 0.5 - Math.random());
+        return shuffledQuestions.slice(0, numberOfQuestions);
+    }, [questions, numberOfQuestions]);
 
     return (
-        <div>
+        <div className="flex justify-around items-center h-screen">
+            {/* player one section */}
             <div>
                 <h1>{playerOneName}</h1>
-                {multiplayerEnabled && <h2>{playerTwoName}</h2>}
+                <QuestionsList questions={selectedQuestions} />
             </div>
-            <QuestionsList questions={questions} />
+            {/* player two section */}
+            <div>
+                {multiplayerEnabled && <h2>{playerTwoName}</h2>}
+                <QuestionsList questions={selectedQuestions} />
+            </div>
         </div>
     );
 }

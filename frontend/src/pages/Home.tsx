@@ -10,11 +10,12 @@ interface HomeProps {
     setPlayerTwoName: (name: string) => void;
     multiplayerEnabled: boolean;
     setMultiplayerEnabled: (enable: boolean) => void;
+    setNumberOfQuestions: (number: number) => void;
 }
 
 const Home = (props: HomeProps) => {
 
-    const { setPlayerOneName, setPlayerTwoName, setMultiplayerEnabled, multiplayerEnabled } = props;
+    const { setPlayerOneName, setPlayerTwoName, setMultiplayerEnabled, multiplayerEnabled, setNumberOfQuestions } = props;
 
     const handlePlayerOneNameChange = (event: React.ChangeEvent<HTMLInputElement>) => {
         setPlayerOneName(event.target.value);
@@ -27,6 +28,10 @@ const Home = (props: HomeProps) => {
     const handleMultiplayerChange = (event: React.ChangeEvent<HTMLInputElement>) => {
         setMultiplayerEnabled(event.target.checked);
     };
+
+    const  handleNumberOfQuestionsChange = (event: React.ChangeEvent<HTMLSelectElement>) => {
+        setNumberOfQuestions(parseInt(event.target.value, 10));
+    }
 
     return (
         <div className="flex flex-col justify-center h-screen bg-cover bg-center"
@@ -86,7 +91,12 @@ const Home = (props: HomeProps) => {
                         {/* Question per Game Section */}
                         <div className="w-52">
                             <h3>Questions per Game</h3>
-                            <select name="" id="" className="border border-gray-300 focus:border-blue-500 focus:outline-none rounded-md px-3 py-2 w-full">
+                            <select 
+                                name="numberOfQuestions" 
+                                id="numberOfQuestions" 
+                                className="border border-gray-300 focus:border-blue-500 focus:outline-none rounded-md px-3 py-2 w-full"
+                                onChange={handleNumberOfQuestionsChange}
+                            >
                                 <option value="5">5 Questions</option>
                                 <option value="10">10 Questions</option>
                                 <option value="15">15 Questions</option>

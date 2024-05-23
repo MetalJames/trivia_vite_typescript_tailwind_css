@@ -14,6 +14,7 @@ const App: React.FC = () => {
   const [playerOneName, setPlayerOneName] = useState('Player One');
   const [playerTwoName, setPlayerTwoName] = useState('Player Two');
   const [multiplayerEnabled, setMultiplayerEnabled] = useState(false);
+  const [numberOfQuestions, setNumberOfQuestions] = useState(5);
 
   useEffect(() => {
     const fetchData = async () => {
@@ -32,8 +33,28 @@ const App: React.FC = () => {
     <div>
       <BrowserRouter>
         <Routes>
-          <Route path="/" element={<Home setPlayerOneName={setPlayerOneName}  setPlayerTwoName={setPlayerTwoName} setMultiplayerEnabled={setMultiplayerEnabled} multiplayerEnabled={multiplayerEnabled} />} />
-          <Route path="game" element={<Game playerOneName={playerOneName}  playerTwoName={playerTwoName} multiplayerEnabled={multiplayerEnabled} questions={questions} />} />
+          <Route 
+            path="/" 
+            element={
+              <Home 
+                setPlayerOneName={setPlayerOneName} 
+                setPlayerTwoName={setPlayerTwoName} 
+                setMultiplayerEnabled={setMultiplayerEnabled} 
+                multiplayerEnabled={multiplayerEnabled}
+                setNumberOfQuestions={setNumberOfQuestions}
+              />}
+            />
+          <Route 
+            path="game" 
+            element={
+              <Game 
+                playerOneName={playerOneName} 
+                playerTwoName={playerTwoName} 
+                multiplayerEnabled={multiplayerEnabled} 
+                questions={questions} 
+                numberOfQuestions={numberOfQuestions}
+              />}
+            />
         </Routes>
       </BrowserRouter>
     </div>
