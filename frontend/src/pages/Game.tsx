@@ -1,5 +1,5 @@
-import { useMemo } from "react";
-import QuestionsList from "../components/QuestionsList";
+import { useMemo, useState } from "react";
+import QuestionComponent from "../components/QuestionComponent";
 
 type GameStuff = {
     questions: Question[];
@@ -10,13 +10,21 @@ type GameStuff = {
 };
 
 type Question = {
+    _id: string;
     QuestionID: string;
     Question: string;
+    AnswerOne: string;
+    AnswerTwo: string;
+    AnswerThree: string;
+    AnswerFour: string;
+    CorrectAnswer: string;
 }
 
 const Game = (props: GameStuff) => {
 
     const { questions, playerOneName, playerTwoName, multiplayerEnabled, numberOfQuestions } = props;
+
+    const [currentQuestionIndex, setCurrentQuestionIndex] = useState(0);
 
     const [playerOneQuestions, playerTwoQuestions] = useMemo(() => {
         const shuffledQuestions = [...questions].sort(() => 0.5 - Math.random());
@@ -25,18 +33,37 @@ const Game = (props: GameStuff) => {
         return [playerOneQuestions, playerTwoQuestions];
     }, [questions, numberOfQuestions]);
 
+    const handleAnswer = () => {
+        setCurrentQuestionIndex(currentQuestionIndex + 1);
+    };
+
+    const currentPlayerOneQuestion = playerOneQuestions[currentQuestionIndex];
+    const currentPlayerTwoQuestion = multiplayerEnabled ? playerTwoQuestions[currentQuestionIndex] : null;
+
     return (
-        <div className="flex justify-around items-center h-screen">
-            {/* player one section */}
+<div className="flex justify-around items-center h-screen">
             <div>
                 <h1>{playerOneName}</h1>
-                <QuestionsList questions={playerOneQuestions} />
+                {currentPlayerOneQuestion ? (
+                    <QuestionComponent
+                        question={currentPlayerOneQuestion}
+                        onAnswer={handleAnswer}
+                    />
+                ) : (
+                    <p>No more questions</p>
+                )}
             </div>
-            {/* Player Two Section */}
             {multiplayerEnabled && (
                 <div>
                     <h2>{playerTwoName}</h2>
-                    <QuestionsList questions={playerTwoQuestions} />
+                    {currentPlayerTwoQuestion ? (
+                        <QuestionComponent
+                            question={currentPlayerTwoQuestion}
+                            onAnswer={handleAnswer}
+                        />
+                    ) : (
+                        <p>No more questions</p>
+                    )}
                 </div>
             )}
         </div>
