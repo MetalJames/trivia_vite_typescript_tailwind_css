@@ -1,15 +1,16 @@
 import React from "react";
+import { Question } from "../types/types"; 
 
-type Question = {
-    _id: string;
-    QuestionID: string;
-    Question: string;
-    AnswerOne: string;
-    AnswerTwo: string;
-    AnswerThree: string;
-    AnswerFour: string;
-    CorrectAnswer: string;
-};
+// type Question = {
+//     _id: string;
+//     QuestionID: string;
+//     Question: string;
+//     AnswerOne: string;
+//     AnswerTwo: string;
+//     AnswerThree: string;
+//     AnswerFour: string;
+//     CorrectAnswer: string;
+// };
 
 type QuestionComponentProps = {
     question: Question;

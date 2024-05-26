@@ -1,6 +1,8 @@
 import { useMemo, useState } from "react";
 import QuestionComponent from "../components/QuestionComponent";
 
+import { Question } from "../types/types";
+
 type GameStuff = {
     questions: Question[];
     playerOneName: string;
@@ -9,23 +11,25 @@ type GameStuff = {
     numberOfQuestions: number;
 };
 
-type Question = {
-    _id: string;
-    QuestionID: string;
-    Question: string;
-    AnswerOne: string;
-    AnswerTwo: string;
-    AnswerThree: string;
-    AnswerFour: string;
-    CorrectAnswer: string;
-}
+// type Question = {
+//     _id: string;
+//     QuestionID: string;
+//     Question: string;
+//     AnswerOne: string;
+//     AnswerTwo: string;
+//     AnswerThree: string;
+//     AnswerFour: string;
+//     CorrectAnswer: string;
+// }
 
 const Game = (props: GameStuff) => {
 
     const { questions, playerOneName, playerTwoName, multiplayerEnabled, numberOfQuestions } = props;
 
-    const [currentQuestionIndex, setCurrentQuestionIndex] = useState(0);
-    const [score, setScrore] = useState(0);
+    const [currentQuestionIndexPlayerOne, setCurrentQuestionIndexPlayerOne] = useState(0);
+    const [currentQuestionIndexPlayerTwo, setCurrentQuestionIndexPlayerTwo] = useState(0);
+    const [playerOneScore, setPlayerOneScrore] = useState(0);
+    const [playerTwoScore, setPlayerTwoScrore] = useState(0);
 
     const [playerOneQuestions, playerTwoQuestions] = useMemo(() => {
         const shuffledQuestions = [...questions].sort(() => 0.5 - Math.random());
@@ -34,26 +38,34 @@ const Game = (props: GameStuff) => {
         return [playerOneQuestions, playerTwoQuestions];
     }, [questions, numberOfQuestions]);
 
-    const handleAnswer = (selectedAnswer: string) => {
-        const currentQuestion = playerOneQuestions[currentQuestionIndex];
-        if(currentQuestion.CorrectAnswer == selectedAnswer) {
-            setScrore(score + 1)
+    const handleAnswerPlayerOne = (selectedAnswer: string) => {
+        const currentQuestionPlayerOne = playerOneQuestions[currentQuestionIndexPlayerOne];
+        if(currentQuestionPlayerOne.CorrectAnswer == selectedAnswer) {
+            setPlayerOneScrore(playerOneScore + 1);
         }
-        setCurrentQuestionIndex(currentQuestionIndex + 1);
+        setCurrentQuestionIndexPlayerOne(currentQuestionIndexPlayerOne + 1);
     };
 
-    const currentPlayerOneQuestion = playerOneQuestions[currentQuestionIndex];
-    const currentPlayerTwoQuestion = multiplayerEnabled ? playerTwoQuestions[currentQuestionIndex] : null;
+    const handleAnswerPlayerTwo = (selectedAnswer: string) => {
+        const currentQuestionPlayerTwo = playerTwoQuestions[currentQuestionIndexPlayerTwo];
+        if(currentQuestionPlayerTwo.CorrectAnswer == selectedAnswer) {
+            setPlayerTwoScrore(playerTwoScore + 1);
+        }
+        setCurrentQuestionIndexPlayerTwo(currentQuestionIndexPlayerTwo + 1);
+    };
+
+    const currentPlayerOneQuestion = playerOneQuestions[currentQuestionIndexPlayerOne];
+    const currentPlayerTwoQuestion = multiplayerEnabled ? playerTwoQuestions[currentQuestionIndexPlayerTwo] : null;
 
     return (
 <div className="flex justify-around items-center h-screen">
             <div>
                 <h1>{playerOneName}</h1>
-                <p>Your Score: {score}</p>
+                <p>Your Score: {playerOneScore}</p>
                 {currentPlayerOneQuestion ? (
                     <QuestionComponent
                         question={currentPlayerOneQuestion}
-                        onAnswer={handleAnswer}
+                        onAnswer={handleAnswerPlayerOne}
                     />
                 ) : (
                     <p>No more questions</p>
@@ -62,10 +74,11 @@ const Game = (props: GameStuff) => {
             {multiplayerEnabled && (
                 <div>
                     <h2>{playerTwoName}</h2>
+                    <p>Your Score: {playerTwoScore}</p>
                     {currentPlayerTwoQuestion ? (
                         <QuestionComponent
                             question={currentPlayerTwoQuestion}
-                            onAnswer={handleAnswer}
+                            onAnswer={handleAnswerPlayerTwo}
                         />
                     ) : (
                         <p>No more questions</p>

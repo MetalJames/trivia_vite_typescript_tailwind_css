@@ -3,11 +3,12 @@ import { fetchFromAPI, BASE_URL } from "./fetchMongo";
 import Home from "./pages/Home";
 import Game from "./pages/Game";
 import { BrowserRouter, Route, Routes } from "react-router-dom";
+import { Question } from "./types/types";
 
-interface Question {
-  QuestionID: string;
-  Question: string;
-}
+// interface Question {
+//   QuestionID: string;
+//   Question: string;
+// }
 
 const App: React.FC = () => {
   const [questions, setQuestions] = useState<Question[]>([]);
