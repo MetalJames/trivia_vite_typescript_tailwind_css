@@ -32,11 +32,13 @@ const Game = (props: GameStuff) => {
                 <h1>{playerOneName}</h1>
                 <QuestionsList questions={playerOneQuestions} />
             </div>
-            {/* player two section */}
-            <div>
-                {multiplayerEnabled && <h2>{playerTwoName}</h2>}
-                <QuestionsList questions={playerTwoQuestions} />
-            </div>
+            {/* Player Two Section */}
+            {multiplayerEnabled && (
+                <div>
+                    <h2>{playerTwoName}</h2>
+                    <QuestionsList questions={playerTwoQuestions} />
+                </div>
+            )}
         </div>
     );
 }
