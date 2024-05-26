@@ -25,6 +25,7 @@ const Game = (props: GameStuff) => {
     const { questions, playerOneName, playerTwoName, multiplayerEnabled, numberOfQuestions } = props;
 
     const [currentQuestionIndex, setCurrentQuestionIndex] = useState(0);
+    const [score, setScrore] = useState(0);
 
     const [playerOneQuestions, playerTwoQuestions] = useMemo(() => {
         const shuffledQuestions = [...questions].sort(() => 0.5 - Math.random());
@@ -33,7 +34,11 @@ const Game = (props: GameStuff) => {
         return [playerOneQuestions, playerTwoQuestions];
     }, [questions, numberOfQuestions]);
 
-    const handleAnswer = () => {
+    const handleAnswer = (selectedAnswer: string) => {
+        const currentQuestion = playerOneQuestions[currentQuestionIndex];
+        if(currentQuestion.CorrectAnswer == selectedAnswer) {
+            setScrore(score + 1)
+        }
         setCurrentQuestionIndex(currentQuestionIndex + 1);
     };
 
@@ -44,6 +49,7 @@ const Game = (props: GameStuff) => {
 <div className="flex justify-around items-center h-screen">
             <div>
                 <h1>{playerOneName}</h1>
+                <p>Your Score: {score}</p>
                 {currentPlayerOneQuestion ? (
                     <QuestionComponent
                         question={currentPlayerOneQuestion}

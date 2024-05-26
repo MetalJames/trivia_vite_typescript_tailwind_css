@@ -13,7 +13,7 @@ type Question = {
 
 type QuestionComponentProps = {
     question: Question;
-    onAnswer: () => void;
+    onAnswer: (answe: string) => void;
 };
 
 const QuestionComponent: React.FC<QuestionComponentProps> = ({ question, onAnswer }) => {
@@ -27,25 +27,25 @@ const QuestionComponent: React.FC<QuestionComponentProps> = ({ question, onAnswe
             <div className="grid grid-cols-2 gap-4">
                 <button
                     className="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded transition-all"
-                    onClick={onAnswer}
+                    onClick={() => onAnswer(question.AnswerOne)}
                 >
                     {question.AnswerOne}
                 </button>
                 <button
                     className="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded transition-all"
-                    onClick={onAnswer}
+                    onClick={() => onAnswer(question.AnswerTwo)}
                 >
                     {question.AnswerTwo}
                 </button>
                 <button
                     className="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded transition-all"
-                    onClick={onAnswer}
+                    onClick={() => onAnswer(question.AnswerThree)}
                 >
                     {question.AnswerThree}
                 </button>
                 <button
                     className="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded transition-all"
-                    onClick={onAnswer}
+                    onClick={() => onAnswer(question.AnswerFour)}
                 >
                     {question.AnswerFour}
                 </button>
