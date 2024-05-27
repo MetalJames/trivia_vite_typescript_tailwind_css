@@ -8,13 +8,23 @@ type GameStuff = {
     multiplayerEnabled: boolean;
 };
 
-const Winner = () => {
+type ResetAll = {
+    resetAll: () => void;
+}
+
+const Winner = (props: ResetAll) => {
+
+    const { resetAll } = props;
 
     const location = useLocation();
 
     const { playerOneName, playerTwoName, playerOneScore, playerTwoScore, multiplayerEnabled } = location.state as GameStuff;
 
     const winner = playerOneScore > playerTwoScore ? playerOneName : playerOneScore < playerTwoScore ? playerTwoName : 'It\'s a tie';
+
+    const handleHomeClick = () => {
+        resetAll();
+    };
 
     return (
         <div className="flex flex-col items-center h-screen justify-center">
@@ -32,7 +42,7 @@ const Winner = () => {
                 </div>
             )}
             <Link to="/">
-                <button className="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded mt-6">
+                <button onClick={handleHomeClick} className="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded mt-6">
                     Home
                 </button>
             </Link>

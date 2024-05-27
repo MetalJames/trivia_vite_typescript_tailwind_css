@@ -20,6 +20,15 @@ const App: React.FC = () => {
   const [multiplayerEnabled, setMultiplayerEnabled] = useState(false);
   const [numberOfQuestions, setNumberOfQuestions] = useState(5);
 
+  const resetAll = () => {
+    setPlayerOneName('Player One');
+    setPlayerTwoName('Player Two');
+    setPlayerOneScrore(0);
+    setPlayerTwoScrore(0);
+    setMultiplayerEnabled(false);
+    setNumberOfQuestions(5);
+  };
+
   useEffect(() => {
     const fetchData = async () => {
       try {
@@ -61,17 +70,19 @@ const App: React.FC = () => {
                 multiplayerEnabled={multiplayerEnabled} 
                 questions={questions} 
                 numberOfQuestions={numberOfQuestions}
+                resetAll={resetAll}
               />}
             />
             <Route 
             path="winner" 
             element={
               <Winner 
-                // playerOneName={playerOneName} 
-                // playerTwoName={playerTwoName}
-                // playerOneScore ={playerOneScore}
-                // playerTwoScore={playerTwoScore}
-                // multiplayerEnabled={multiplayerEnabled} 
+                //playerOneName={playerOneName} 
+                //playerTwoName={playerTwoName}
+                //playerOneScore ={playerOneScore}
+                //playerTwoScore={playerTwoScore}
+                //multiplayerEnabled={multiplayerEnabled}
+                resetAll={resetAll}
               />}
             />
         </Routes>

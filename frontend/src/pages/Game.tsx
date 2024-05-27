@@ -14,6 +14,7 @@ type GameStuff = {
     setPlayerTwoScore: (score: number) => void;
     multiplayerEnabled: boolean;
     numberOfQuestions: number;
+    resetAll: () => void;
 };
 
 // type Question = {
@@ -38,7 +39,8 @@ const Game = (props: GameStuff) => {
         setPlayerOneScore,
         setPlayerTwoScore,
         multiplayerEnabled, 
-        numberOfQuestions 
+        numberOfQuestions,
+        resetAll,
     } = props;
 
     const navigate = useNavigate();
@@ -82,6 +84,10 @@ const Game = (props: GameStuff) => {
     const currentPlayerOneQuestion = playerOneQuestions[currentQuestionIndexPlayerOne];
     const currentPlayerTwoQuestion = multiplayerEnabled ? playerTwoQuestions[currentQuestionIndexPlayerTwo] : null;
 
+    const handleHomeClick = () => {
+        resetAll();
+    };
+
     useEffect(() => {
         if (currentQuestionIndexPlayerOne >= numberOfQuestions && 
             (!multiplayerEnabled || currentQuestionIndexPlayerTwo >= numberOfQuestions)) {
@@ -91,7 +97,7 @@ const Game = (props: GameStuff) => {
                     playerOneScore,
                     playerTwoName,
                     playerTwoScore,
-                    multiplayerEnabled
+                    multiplayerEnabled,
                 }
             });
         }
@@ -128,9 +134,7 @@ const Game = (props: GameStuff) => {
                 )}
             </div>
             <Link to="/">
-                <button 
-                    className="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded transition-all"
-                >
+                <button onClick={handleHomeClick} className="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded mt-6">
                     Home
                 </button>
             </Link>
