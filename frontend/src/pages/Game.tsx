@@ -17,19 +17,7 @@ type GameStuff = {
     resetAll: () => void;
 };
 
-// type Question = {
-//     _id: string;
-//     QuestionID: string;
-//     Question: string;
-//     AnswerOne: string;
-//     AnswerTwo: string;
-//     AnswerThree: string;
-//     AnswerFour: string;
-//     CorrectAnswer: string;
-// }
-
 const Game = (props: GameStuff) => {
-
     const { 
         questions, 
         playerOneName, 
@@ -48,17 +36,20 @@ const Game = (props: GameStuff) => {
     const [currentQuestionIndexPlayerOne, setCurrentQuestionIndexPlayerOne] = useState(0);
     const [currentQuestionIndexPlayerTwo, setCurrentQuestionIndexPlayerTwo] = useState(0);
 
-
     const [playerOneQuestions, playerTwoQuestions] = useMemo(() => {
         const shuffledQuestions = [...questions].sort(() => 0.5 - Math.random());
         const playerOneQuestions = [];
         const playerTwoQuestions = [];
 
-        for (let i=0; i < numberOfQuestions *2; i++) {
-            if (i % 2 === 0 && playerOneQuestions.length < numberOfQuestions) {
+        const totalQuestionsNeeded = numberOfQuestions * 2;
+        const availableQuestions = Math.min(totalQuestionsNeeded, shuffledQuestions.length);
+        const questionsPerPlayer = Math.floor(availableQuestions / 2);
+
+        for (let i = 0; i < availableQuestions; i++) {
+            if (i % 2 === 0 && playerOneQuestions.length < questionsPerPlayer) {
                 playerOneQuestions.push(shuffledQuestions[i]);
-            } else if (playerTwoQuestions.length < numberOfQuestions) {
-                playerTwoQuestions.push(shuffledQuestions[i])
+            } else if (playerTwoQuestions.length < questionsPerPlayer) {
+                playerTwoQuestions.push(shuffledQuestions[i]);
             }
         }
 
@@ -67,7 +58,7 @@ const Game = (props: GameStuff) => {
 
     const handleAnswerPlayerOne = (selectedAnswer: string) => {
         const currentQuestionPlayerOne = playerOneQuestions[currentQuestionIndexPlayerOne];
-        if(currentQuestionPlayerOne.CorrectAnswer == selectedAnswer) {
+        if (currentQuestionPlayerOne?.CorrectAnswer === selectedAnswer) {
             setPlayerOneScore(playerOneScore + 1);
         }
         setCurrentQuestionIndexPlayerOne(currentQuestionIndexPlayerOne + 1);
@@ -75,7 +66,7 @@ const Game = (props: GameStuff) => {
 
     const handleAnswerPlayerTwo = (selectedAnswer: string) => {
         const currentQuestionPlayerTwo = playerTwoQuestions[currentQuestionIndexPlayerTwo];
-        if(currentQuestionPlayerTwo.CorrectAnswer == selectedAnswer) {
+        if (currentQuestionPlayerTwo?.CorrectAnswer === selectedAnswer) {
             setPlayerTwoScore(playerTwoScore + 1);
         }
         setCurrentQuestionIndexPlayerTwo(currentQuestionIndexPlayerTwo + 1);
@@ -89,8 +80,10 @@ const Game = (props: GameStuff) => {
     };
 
     useEffect(() => {
-        if (currentQuestionIndexPlayerOne >= numberOfQuestions && 
-            (!multiplayerEnabled || currentQuestionIndexPlayerTwo >= numberOfQuestions)) {
+        if (
+            currentQuestionIndexPlayerOne >= playerOneQuestions.length &&
+            (!multiplayerEnabled || currentQuestionIndexPlayerTwo >= playerTwoQuestions.length)
+        ) {
             navigate("/winner", {
                 state: {
                     playerOneName,
@@ -98,10 +91,23 @@ const Game = (props: GameStuff) => {
                     playerTwoName,
                     playerTwoScore,
                     multiplayerEnabled,
+                    playerOneQuestionsAvailable: playerOneQuestions.length,
+                    playerTwoQuestionsAvailable: playerTwoQuestions.length,
                 }
             });
         }
-    }, [currentQuestionIndexPlayerOne, currentQuestionIndexPlayerTwo, numberOfQuestions, navigate, playerOneName, playerOneScore, playerTwoName, playerTwoScore, multiplayerEnabled]);
+    }, [
+        currentQuestionIndexPlayerOne, 
+        currentQuestionIndexPlayerTwo, 
+        playerOneQuestions.length, 
+        playerTwoQuestions.length, 
+        multiplayerEnabled, 
+        navigate, 
+        playerOneName, 
+        playerOneScore, 
+        playerTwoName, 
+        playerTwoScore
+    ]);
 
     return (
         <div>
