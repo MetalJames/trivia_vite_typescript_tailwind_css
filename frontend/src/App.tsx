@@ -2,6 +2,7 @@ import React, { useEffect, useState } from "react";
 import { fetchFromAPI, BASE_URL } from "./fetchMongo";
 import Home from "./pages/Home";
 import Game from "./pages/Game";
+import Winner from "./pages/Winner"
 import { BrowserRouter, Route, Routes } from "react-router-dom";
 import { Question } from "./types/types";
 
@@ -14,6 +15,8 @@ const App: React.FC = () => {
   const [questions, setQuestions] = useState<Question[]>([]);
   const [playerOneName, setPlayerOneName] = useState('Player One');
   const [playerTwoName, setPlayerTwoName] = useState('Player Two');
+  const [playerOneScore, setPlayerOneScrore] = useState(0);
+  const [playerTwoScore, setPlayerTwoScrore] = useState(0);
   const [multiplayerEnabled, setMultiplayerEnabled] = useState(false);
   const [numberOfQuestions, setNumberOfQuestions] = useState(5);
 
@@ -51,9 +54,24 @@ const App: React.FC = () => {
               <Game 
                 playerOneName={playerOneName} 
                 playerTwoName={playerTwoName} 
+                playerOneScore={playerOneScore} 
+                playerTwoScore={playerTwoScore} 
+                setPlayerOneScore={setPlayerOneScrore}
+                setPlayerTwoScore={setPlayerTwoScrore}
                 multiplayerEnabled={multiplayerEnabled} 
                 questions={questions} 
                 numberOfQuestions={numberOfQuestions}
+              />}
+            />
+            <Route 
+            path="winner" 
+            element={
+              <Winner 
+                // playerOneName={playerOneName} 
+                // playerTwoName={playerTwoName}
+                // playerOneScore ={playerOneScore}
+                // playerTwoScore={playerTwoScore}
+                // multiplayerEnabled={multiplayerEnabled} 
               />}
             />
         </Routes>
