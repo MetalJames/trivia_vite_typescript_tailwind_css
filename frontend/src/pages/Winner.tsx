@@ -1,4 +1,5 @@
 import { Link, useLocation } from "react-router-dom";
+import { addScore } from "../firestoreService";
 
 type GameStuff = {
     playerOneName: string;
@@ -24,6 +25,12 @@ const Winner = (props: ResetAll) => {
 
     const handleHomeClick = () => {
         resetAll();
+        if(multiplayerEnabled) {
+            addScore(playerOneName, playerOneScore);
+            addScore(playerTwoName, playerTwoScore);
+        } else {
+            addScore(playerOneName, playerOneScore);
+        }
     };
 
     return (

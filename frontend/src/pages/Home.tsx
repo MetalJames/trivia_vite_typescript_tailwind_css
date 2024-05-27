@@ -1,8 +1,9 @@
 //import { useState } from "react";
-import React from "react";
+import React, { useEffect, useState } from "react";
 import { mainScreen } from "../assets";
 import { Link } from "react-router-dom";
 //import { LenghtoftheLastWord } from "../components/LenghtoftheLastWord";
+import { getTopScores } from "../firestoreService";
 
 //implement type
 interface HomeProps {
@@ -13,7 +14,14 @@ interface HomeProps {
     setNumberOfQuestions: (number: number) => void;
 }
 
+interface Score {
+    name: string;
+    score: number;
+}
+
 const Home = (props: HomeProps) => {
+
+    const [topScores, setTopScores] = useState<Score[]>([]);
 
     const { setPlayerOneName, setPlayerTwoName, setMultiplayerEnabled, multiplayerEnabled, setNumberOfQuestions } = props;
 
@@ -33,10 +41,33 @@ const Home = (props: HomeProps) => {
         setNumberOfQuestions(parseInt(event.target.value, 10));
     }
 
+    useEffect(() => {
+        const fetchScores = async () => {
+            const scores = await getTopScores();
+            setTopScores(scores);
+        };
+        fetchScores();
+    })
+
     return (
         <div className="flex flex-col justify-center h-screen bg-cover bg-center"
             style={{ backgroundImage: `url(${mainScreen})` }}>
                 {/* <LenghtoftheLastWord /> */}
+
+            {/* firebase scores */}
+            <div>
+                <h1>Top Scores</h1>
+                <ul>
+                    {topScores.map((score, index) => (
+                        <li key={index}>{score.name}: {score.score}</li>
+                    ))}
+                </ul>
+            </div>
+
+
+
+
+
             <div className="flex flex-col justify-center bg-white h-full bg-opacity-70">
             <div className="flex flex-col justify-around items-center h-[70%]">
             <h1 className="text-7xl font-bold text-sky-700">Trivia Quiz Game</h1>
