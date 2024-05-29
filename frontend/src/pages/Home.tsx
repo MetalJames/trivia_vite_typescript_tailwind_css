@@ -1,12 +1,10 @@
-//import { useState } from "react";
 import React, { useEffect, useState } from "react";
 import { mainScreen } from "../assets";
 import { Link } from "react-router-dom";
-//import { LenghtoftheLastWord } from "../components/LenghtoftheLastWord";
-import { getTopScores } from "../firestoreService";
+import { getTopScores5, getTopScores10, getTopScores15 } from "../firestoreService";
 
 //implement type
-interface HomeProps {
+type HomeProps = {
     setPlayerOneName: (name: string) => void;
     setPlayerTwoName: (name: string) => void;
     multiplayerEnabled: boolean;
@@ -14,15 +12,17 @@ interface HomeProps {
     setNumberOfQuestions: (number: number) => void;
 }
 
-interface Score {
+type Score = {
     name: string;
     score: number;
 }
 
 const Home = (props: HomeProps) => {
 
-    const [topScores, setTopScores] = useState<Score[]>([]);
-
+    const [topScores5, setTopScores5] = useState<Score[]>([]);
+    const [topScores10, setTopScores10] = useState<Score[]>([]);
+    const [topScores15, setTopScores15] = useState<Score[]>([]);
+    
     const { setPlayerOneName, setPlayerTwoName, setMultiplayerEnabled, multiplayerEnabled, setNumberOfQuestions } = props;
 
     const handlePlayerOneNameChange = (event: React.ChangeEvent<HTMLInputElement>) => {
@@ -43,8 +43,12 @@ const Home = (props: HomeProps) => {
 
     useEffect(() => {
         const fetchScores = async () => {
-            const scores = await getTopScores();
-            setTopScores(scores);
+            const scores5 = await getTopScores5();
+            const scores10 = await getTopScores10();
+            const scores15 = await getTopScores15();
+            setTopScores5(scores5);
+            setTopScores10(scores10);
+            setTopScores15(scores15);
         };
         fetchScores();
     })
@@ -52,24 +56,9 @@ const Home = (props: HomeProps) => {
     return (
         <div className="flex flex-col justify-center h-screen bg-cover bg-center"
             style={{ backgroundImage: `url(${mainScreen})` }}>
-                {/* <LenghtoftheLastWord /> */}
-
-            {/* firebase scores */}
-            <div>
-                <h1>Top Scores</h1>
-                <ul>
-                    {topScores.map((score, index) => (
-                        <li key={index}>{score.name}: {score.score}</li>
-                    ))}
-                </ul>
-            </div>
-
-
-
-
-
             <div className="flex flex-col justify-center bg-white h-full bg-opacity-70">
-            <div className="flex flex-col justify-around items-center h-[70%]">
+            <div className="h-[20%]"></div>
+            <div className="flex flex-col justify-between items-center h-[60%]">
             <h1 className="text-7xl font-bold text-sky-700">Trivia Quiz Game</h1>
             <div className='flex flex-col justify-center items-center bg-white bg-opacity-90 rounded-md'>
                 <div className="flex flex-col justify-around items-center w-[40vw] h-[250px]">
@@ -144,6 +133,36 @@ const Home = (props: HomeProps) => {
                     Start the Game
                 </button>
             </Link>
+            </div>
+            {/* firebase scores */}
+            <div className="flex justify-around pt-5 h-[20%]">
+                {/* Top Scores 5 Questions */}
+                <div>
+                    <h1 className="font-bold text-sky-700 bg-white bg-opacity-70 rounded px-2">Top Scores 5 Questions</h1>
+                    <ul>
+                        {topScores5.map((score, index) => (
+                            <li key={index}>{score.name}: {score.score}</li>
+                        ))}
+                    </ul>
+                </div>
+                {/* Top Scores 10 Questions */}
+                <div>
+                    <h1 className="font-bold text-sky-700 bg-white bg-opacity-70 rounded px-2">Top Scores 10 Questions</h1>
+                    <ul>
+                        {topScores10.map((score, index) => (
+                            <li key={index}>{score.name}: {score.score}</li>
+                        ))}
+                    </ul>
+                </div>
+                {/* Top Scores 15 Questions */}
+                <div>
+                    <h1 className="font-bold text-sky-700 bg-white bg-opacity-70 rounded px-2">Top Scores 15 Questions</h1>
+                    <ul>
+                        {topScores15.map((score, index) => (
+                            <li key={index}>{score.name}: {score.score}</li>
+                        ))}
+                    </ul>
+                </div>
             </div>
             </div>
         </div>

@@ -1,5 +1,5 @@
 import { Link, useLocation } from "react-router-dom";
-import { addScore } from "../firestoreService";
+import { addScore5, addScore10, addScore15 } from "../firestoreService";
 
 type GameStuff = {
     playerOneName: string;
@@ -7,6 +7,7 @@ type GameStuff = {
     playerOneScore: number;
     playerTwoScore: number;
     multiplayerEnabled: boolean;
+    numberOfQuestions: number;
 };
 
 type ResetAll = {
@@ -19,17 +20,33 @@ const Winner = (props: ResetAll) => {
 
     const location = useLocation();
 
-    const { playerOneName, playerTwoName, playerOneScore, playerTwoScore, multiplayerEnabled } = location.state as GameStuff;
+    const { playerOneName, playerTwoName, playerOneScore, playerTwoScore, multiplayerEnabled, numberOfQuestions } = location.state as GameStuff;
 
     const winner = playerOneScore > playerTwoScore ? playerOneName : playerOneScore < playerTwoScore ? playerTwoName : 'It\'s a tie';
 
     const handleHomeClick = () => {
         resetAll();
-        if(multiplayerEnabled) {
-            addScore(playerOneName, playerOneScore);
-            addScore(playerTwoName, playerTwoScore);
+        if(numberOfQuestions == 5) {
+            if(multiplayerEnabled) {
+                addScore5(playerOneName, playerOneScore);
+                addScore5(playerTwoName, playerTwoScore);
+            } else {
+                addScore5(playerOneName, playerOneScore);
+            }
+        } else if (numberOfQuestions == 10) {
+            if(multiplayerEnabled) {
+                addScore10(playerOneName, playerOneScore);
+                addScore10(playerTwoName, playerTwoScore);
+            } else {
+                addScore10(playerOneName, playerOneScore);
+            }
         } else {
-            addScore(playerOneName, playerOneScore);
+            if(multiplayerEnabled) {
+                addScore15(playerOneName, playerOneScore);
+                addScore15(playerTwoName, playerTwoScore);
+            } else {
+                addScore15(playerOneName, playerOneScore);
+            }
         }
     };
 
