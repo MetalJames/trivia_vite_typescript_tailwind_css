@@ -61,7 +61,7 @@ const Game = (props: GameStuff) => {
         }
 
         return [playerOneQuestions, playerTwoQuestions];
-    }, [questions, numberOfQuestions]);
+    }, [questions, numberOfQuestions, multiplayerEnabled]);
 
     const handleAnswerPlayerOne = (selectedAnswer: string) => {
         const currentQuestionPlayerOne = playerOneQuestions[currentQuestionIndexPlayerOne];
