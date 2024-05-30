@@ -1,5 +1,6 @@
 import { useEffect, useMemo, useState } from "react";
 import QuestionComponent from "../components/QuestionComponent";
+import { gameScreen } from "../assets";
 
 import { Question } from "../types/types";
 import { Link, useNavigate } from "react-router-dom";
@@ -118,28 +119,39 @@ const Game = (props: GameStuff) => {
 
     return (
         <div>
-            <div className="flex justify-around items-center h-screen">
-                <div>
-                    <h1>{playerOneName}</h1>
-                    <p>Your Score: {playerOneScore}</p>
+            <div className="flex justify-around items-center h-screen bg-cover bg-center"
+                style={{ backgroundImage: `url(${gameScreen})` }}>
+                <div className="flex flex-col justify-start sm:justify-center bg-white h-full bg-opacity-70 w-full">
+                    <div className="h-[20vw]">
+                        <h1>{playerOneName}</h1>
+                        <p>Your Score: {playerOneScore}</p>
+                    </div>
                     {currentPlayerOneQuestion ? (
-                        <QuestionComponent
-                            question={currentPlayerOneQuestion}
-                            onAnswer={handleAnswerPlayerOne}
-                        />
+                        <div className="flex flex-col justify-center h-full">
+                            <QuestionComponent
+                                multiplayerEnabled={multiplayerEnabled}
+                                question={currentPlayerOneQuestion}
+                                onAnswer={handleAnswerPlayerOne}
+                            />
+                        </div>
                     ) : (
                         <p>No more questions</p>
                     )}
                 </div>
                 {multiplayerEnabled && (
-                    <div>
-                        <h2>{playerTwoName}</h2>
-                        <p>Your Score: {playerTwoScore}</p>
+                    <div className="flex flex-col justify-start sm:justify-center bg-white h-full bg-opacity-70 w-full">
+                        <div className="h-[20vw]">
+                            <h2>{playerTwoName}</h2>
+                            <p>Your Score: {playerTwoScore}</p>
+                        </div>
                         {currentPlayerTwoQuestion ? (
-                            <QuestionComponent
-                                question={currentPlayerTwoQuestion}
-                                onAnswer={handleAnswerPlayerTwo}
-                            />
+                            <div className="flex flex-col justify-center h-full">
+                                <QuestionComponent
+                                    multiplayerEnabled={multiplayerEnabled}
+                                    question={currentPlayerTwoQuestion}
+                                    onAnswer={handleAnswerPlayerTwo}
+                                />
+                            </div>
                         ) : (
                             <p>No more questions</p>
                         )}

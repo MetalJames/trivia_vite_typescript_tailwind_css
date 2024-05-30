@@ -59,7 +59,7 @@ const Home = (props: HomeProps) => {
             <div className="flex flex-col justify-center bg-white h-full bg-opacity-70">
             <div className="h-[5%] sm:h-[20%]"></div>
             <div className="flex flex-col justify-around sm:justify-between items-center h-[80%] sm:h-[60%]">
-                <h1 className="text-3xl sm:text-7xl font-bold text-sky-700">Trivia Quiz Game</h1>
+                <h1 className="text-4xl sm:text-7xl font-bold text-sky-700">Trivia Quiz Game</h1>
                 <div className='flex flex-col justify-center items-center bg-white bg-opacity-90 rounded-md'>
                     <div className="flex flex-col justify-around items-center w-[80vw] sm:w-[40vw] h-auto sm:h-[250px] p-5 sm:p-auto">
                         <div className="flex flex-col w-full pb-5 sm:pb-0">
