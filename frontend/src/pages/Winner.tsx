@@ -27,25 +27,12 @@ const Winner = (props: ResetAll) => {
 
     const handleHomeClick = () => {
         resetAll();
-        if(numberOfQuestions == 5) {
-            if(multiplayerEnabled) {
+        if (!multiplayerEnabled) {
+            if (numberOfQuestions === 5) {
                 addScore5(playerOneName, playerOneScore);
-                addScore5(playerTwoName, playerTwoScore);
-            } else {
-                addScore5(playerOneName, playerOneScore);
-            }
-        } else if (numberOfQuestions == 10) {
-            if(multiplayerEnabled) {
+            } else if (numberOfQuestions === 10) {
                 addScore10(playerOneName, playerOneScore);
-                addScore10(playerTwoName, playerTwoScore);
-            } else {
-                addScore10(playerOneName, playerOneScore);
-            }
-        } else {
-            if(multiplayerEnabled) {
-                addScore15(playerOneName, playerOneScore);
-                addScore15(playerTwoName, playerTwoScore);
-            } else {
+            } else if (numberOfQuestions === 15) {
                 addScore15(playerOneName, playerOneScore);
             }
         }

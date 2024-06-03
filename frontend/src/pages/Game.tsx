@@ -99,6 +99,7 @@ const Game = (props: GameStuff) => {
                     playerTwoName,
                     playerTwoScore,
                     multiplayerEnabled,
+                    numberOfQuestions,
                     playerOneQuestionsAvailable: playerOneQuestions.length,
                     playerTwoQuestionsAvailable: playerTwoQuestions.length,
                 }
@@ -118,51 +119,57 @@ const Game = (props: GameStuff) => {
     ]);
 
     return (
-        <div>
-            <div className="flex justify-around items-center h-screen bg-cover bg-center"
-                style={{ backgroundImage: `url(${gameScreen})` }}>
-                <div className="flex flex-col justify-start sm:justify-center bg-white h-full bg-opacity-70 w-full">
-                    <div className="h-[20vw]">
-                        <h1>{playerOneName}</h1>
-                        <p>Your Score: {playerOneScore}</p>
-                    </div>
-                    {currentPlayerOneQuestion ? (
-                        <div className="flex flex-col justify-center h-full">
-                            <QuestionComponent
-                                multiplayerEnabled={multiplayerEnabled}
-                                question={currentPlayerOneQuestion}
-                                onAnswer={handleAnswerPlayerOne}
-                            />
-                        </div>
-                    ) : (
-                        <p>No more questions</p>
-                    )}
+        <div className="flex justify-around items-center h-screen bg-cover bg-center"
+            style={{ backgroundImage: `url(${gameScreen})` }}>
+            <div className="flex flex-col justify-center items-center bg-white h-full bg-opacity-70 w-full">
+            <div className="flex w-full">
+            <div className="flex flex-col justify-start sm:justify-center h-full w-full">
+                <div className="h-[20vw] w-full flex flex-col justify-center items-center">
+                    <h1 className="text-3xl sm:text-5xl font-bold text-sky-700 mt-5">{playerOneName}</h1>
+                    <p className="font-bold">Your Score: {playerOneScore}</p>
                 </div>
-                {multiplayerEnabled && (
-                    <div className="flex flex-col justify-start sm:justify-center bg-white h-full bg-opacity-70 w-full">
-                        <div className="h-[20vw]">
-                            <h2>{playerTwoName}</h2>
-                            <p>Your Score: {playerTwoScore}</p>
-                        </div>
-                        {currentPlayerTwoQuestion ? (
-                            <div className="flex flex-col justify-center h-full">
-                                <QuestionComponent
-                                    multiplayerEnabled={multiplayerEnabled}
-                                    question={currentPlayerTwoQuestion}
-                                    onAnswer={handleAnswerPlayerTwo}
-                                />
-                            </div>
-                        ) : (
-                            <p>No more questions</p>
-                        )}
+                {currentPlayerOneQuestion ? (
+                    <div className="flex flex-col justify-center h-full">
+                        <QuestionComponent
+                            multiplayerEnabled={multiplayerEnabled}
+                            question={currentPlayerOneQuestion}
+                            onAnswer={handleAnswerPlayerOne}
+                        />
+                    </div>
+                ) : (
+                    <div className="flex justify-center">
+                        <h3 className="text-xl sm:text-2xl font-bold text-sky-700 mt-5">No more questions</h3>
                     </div>
                 )}
             </div>
+            {multiplayerEnabled && (
+                <div className="flex flex-col justify-start sm:justify-center h-full w-full">
+                    <div className="h-[20vw] w-full flex flex-col justify-center items-center">
+                        <h2 className="text-3xl sm:text-5xl font-bold text-sky-700 mt-5">{playerTwoName}</h2>
+                        <p className="font-bold">Your Score: {playerTwoScore}</p>
+                    </div>
+                    {currentPlayerTwoQuestion ? (
+                        <div className="flex flex-col justify-center h-full">
+                            <QuestionComponent
+                                multiplayerEnabled={multiplayerEnabled}
+                                question={currentPlayerTwoQuestion}
+                                onAnswer={handleAnswerPlayerTwo}
+                            />
+                        </div>
+                    ) : (
+                    <div className="flex justify-center">
+                        <h3 className="text-xl sm:text-2xl font-bold text-sky-700 mt-5">No more questions</h3>
+                    </div>
+                    )}
+                </div>
+            )}
+            </div>
             <Link to="/">
-                <button onClick={handleHomeClick} className="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded mt-6">
+                <button onClick={handleHomeClick} className="bg-blue-500 lg:hover:bg-blue-700 text-white font-bold py-2 px-4 rounded my-6 transition-all">
                     Home
                 </button>
             </Link>
+            </div>
         </div>
     );
 }
