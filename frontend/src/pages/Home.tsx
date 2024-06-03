@@ -1,21 +1,10 @@
 import React, { useEffect, useState } from "react";
 import { mainScreen } from "../assets";
 import { Link } from "react-router-dom";
+// Getting firebase
 import { getTopScores5, getTopScores10, getTopScores15 } from "../firestoreService";
-
-//implement type
-type HomeProps = {
-    setPlayerOneName: (name: string) => void;
-    setPlayerTwoName: (name: string) => void;
-    multiplayerEnabled: boolean;
-    setMultiplayerEnabled: (enable: boolean) => void;
-    setNumberOfQuestions: (number: number) => void;
-}
-
-type Score = {
-    name: string;
-    score: number;
-}
+// Getting types
+import { HomeProps, Score } from "../types/types";
 
 const Home = (props: HomeProps) => {
 
@@ -75,7 +64,7 @@ const Home = (props: HomeProps) => {
                                         />
                                     </div>
                                     {/* Player Two Section */}
-                                    <div className="w-48">
+                                    <div className="w-48 hidden sm:block">
                                         <h3 className="pb-1">Player Two</h3>
                                         <input 
                                             type="text" 
@@ -87,7 +76,7 @@ const Home = (props: HomeProps) => {
                                     </div>
                                 </div>
                                 {/* Multiplayer Checkbox Section */}
-                                <div className="flex justify-center mt-4">
+                                <div className="hidden sm:flex justify-center mt-4">
                                     <input 
                                         type="checkbox" 
                                         name="multiplayer" 
@@ -139,7 +128,7 @@ const Home = (props: HomeProps) => {
                     {/* Top Scores 5 Questions */}
                     <div>
                         <h1 className="font-bold text-sky-700 bg-white bg-opacity-70 rounded px-2 text-center">Top Scores 5 Questions</h1>
-                        <ul>
+                        <ul className="bg-white bg-opacity-50 text-center">
                             {topScores5.map((score, index) => (
                                 <li key={index}>{score.name}: {score.score}</li>
                             ))}
@@ -148,7 +137,7 @@ const Home = (props: HomeProps) => {
                     {/* Top Scores 10 Questions */}
                     <div>
                         <h1 className="font-bold text-sky-700 bg-white bg-opacity-70 rounded px-2 text-center">Top Scores 10 Questions</h1>
-                        <ul>
+                        <ul className="bg-white bg-opacity-50 text-center">
                             {topScores10.map((score, index) => (
                                 <li key={index}>{score.name}: {score.score}</li>
                             ))}
@@ -157,7 +146,7 @@ const Home = (props: HomeProps) => {
                     {/* Top Scores 15 Questions */}
                     <div>
                         <h1 className="font-bold text-sky-700 bg-white bg-opacity-70 rounded px-2 text-center">Top Scores 15 Questions</h1>
-                        <ul>
+                        <ul className="bg-white bg-opacity-50 text-center">
                             {topScores15.map((score, index) => (
                                 <li key={index}>{score.name}: {score.score}</li>
                             ))}

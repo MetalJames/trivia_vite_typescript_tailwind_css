@@ -1,24 +1,11 @@
 import { useEffect, useMemo, useState } from "react";
 import QuestionComponent from "../components/QuestionComponent";
 import { gameScreen } from "../assets";
-
-import { Question } from "../types/types";
+// Getting types
+import { GameStuffGameScreen } from "../types/types";
 import { Link, useNavigate } from "react-router-dom";
 
-type GameStuff = {
-    questions: Question[];
-    playerOneName: string;
-    playerTwoName: string;
-    playerOneScore: number;
-    playerTwoScore: number;
-    setPlayerOneScore: (score: number) => void;
-    setPlayerTwoScore: (score: number) => void;
-    multiplayerEnabled: boolean;
-    numberOfQuestions: number;
-    resetAll: () => void;
-};
-
-const Game = (props: GameStuff) => {
+const Game = (props: GameStuffGameScreen) => {
     const { 
         questions, 
         playerOneName, 

@@ -1,15 +1,10 @@
 import React, { useEffect, useState } from "react";
+// Fetching MongoDB
 import { fetchFromAPI, BASE_URL } from "./fetchMongo";
-import Home from "./pages/Home";
-import Game from "./pages/Game";
-import Winner from "./pages/Winner"
+import { Home, Game, Winner } from "./pages"
 import { BrowserRouter, Route, Routes } from "react-router-dom";
+// Getting types
 import { Question } from "./types/types";
-
-// interface Question {
-//   QuestionID: string;
-//   Question: string;
-// }
 
 const App: React.FC = () => {
   const [questions, setQuestions] = useState<Question[]>([]);
@@ -77,11 +72,6 @@ const App: React.FC = () => {
             path="winner" 
             element={
               <Winner 
-                //playerOneName={playerOneName} 
-                //playerTwoName={playerTwoName}
-                //playerOneScore ={playerOneScore}
-                //playerTwoScore={playerTwoScore}
-                //multiplayerEnabled={multiplayerEnabled}
                 resetAll={resetAll}
               />}
             />
