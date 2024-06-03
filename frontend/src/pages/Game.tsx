@@ -111,6 +111,7 @@ const Game = (props: GameStuff) => {
         playerOneQuestions.length, 
         playerTwoQuestions.length, 
         multiplayerEnabled, 
+        numberOfQuestions,
         navigate, 
         playerOneName, 
         playerOneScore, 
