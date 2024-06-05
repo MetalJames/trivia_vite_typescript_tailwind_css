@@ -8,6 +8,7 @@ import { Question } from "./types/types";
 
 const App: React.FC = () => {
   const [questions, setQuestions] = useState<Question[]>([]);
+  const [chosenCategory, setChosenCategory] = useState('General');
   const [playerOneName, setPlayerOneName] = useState('Player One');
   const [playerTwoName, setPlayerTwoName] = useState('Player Two');
   const [playerOneScore, setPlayerOneScrore] = useState(0);
@@ -50,6 +51,7 @@ const App: React.FC = () => {
                 setMultiplayerEnabled={setMultiplayerEnabled} 
                 multiplayerEnabled={multiplayerEnabled}
                 setNumberOfQuestions={setNumberOfQuestions}
+                setChosenCategory={setChosenCategory}
               />}
             />
           <Route 
@@ -65,6 +67,7 @@ const App: React.FC = () => {
                 multiplayerEnabled={multiplayerEnabled} 
                 questions={questions} 
                 numberOfQuestions={numberOfQuestions}
+                chosenCategory={chosenCategory}
                 resetAll={resetAll}
               />}
             />

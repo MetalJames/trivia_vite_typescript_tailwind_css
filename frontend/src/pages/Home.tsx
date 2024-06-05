@@ -12,7 +12,7 @@ const Home = (props: HomeProps) => {
     const [topScores10, setTopScores10] = useState<Score[]>([]);
     const [topScores15, setTopScores15] = useState<Score[]>([]);
     
-    const { setPlayerOneName, setPlayerTwoName, setMultiplayerEnabled, multiplayerEnabled, setNumberOfQuestions } = props;
+    const { setPlayerOneName, setPlayerTwoName, setMultiplayerEnabled, multiplayerEnabled, setNumberOfQuestions, setChosenCategory } = props;
 
     const handlePlayerOneNameChange = (event: React.ChangeEvent<HTMLInputElement>) => {
         setPlayerOneName(event.target.value);
@@ -28,6 +28,10 @@ const Home = (props: HomeProps) => {
 
     const  handleNumberOfQuestionsChange = (event: React.ChangeEvent<HTMLSelectElement>) => {
         setNumberOfQuestions(parseInt(event.target.value, 10));
+    }
+
+    const  handleCategoryChange = (event: React.ChangeEvent<HTMLSelectElement>) => {
+        setChosenCategory(event.target.value);
     }
 
     useEffect(() => {
@@ -91,10 +95,15 @@ const Home = (props: HomeProps) => {
                                 {/* Category Section */}
                                 <div className="w-52">
                                     <h3 className="pb-1">Category of Questions</h3>
-                                    <select name="" id="" className="border border-gray-300 focus:border-blue-500 focus:outline-none rounded-md px-3 py-2 w-full">
+                                    <select 
+                                        name="category" 
+                                        id="category" 
+                                        className="border border-gray-300 focus:border-blue-500 focus:outline-none rounded-md px-3 py-2 w-full"
+                                        onChange={handleCategoryChange}
+                                        >
+                                        <option value="General">General</option>
                                         <option value="Games">Games</option>
                                         <option value="IT">IT</option>
-                                        <option value="General">General</option>
                                     </select>
                                 </div>
                                 {/* Question per Game Section */}

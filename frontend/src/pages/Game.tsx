@@ -16,10 +16,12 @@ const Game = (props: GameStuffGameScreen) => {
         setPlayerTwoScore,
         multiplayerEnabled, 
         numberOfQuestions,
+        chosenCategory,
         resetAll,
     } = props;
 
     const navigate = useNavigate();
+    console.log(chosenCategory);
 
     const [currentQuestionIndexPlayerOne, setCurrentQuestionIndexPlayerOne] = useState(0);
     const [currentQuestionIndexPlayerTwo, setCurrentQuestionIndexPlayerTwo] = useState(0);

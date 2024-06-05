@@ -4,6 +4,7 @@ export type HomeProps = {
     multiplayerEnabled: boolean;
     setMultiplayerEnabled: (enable: boolean) => void;
     setNumberOfQuestions: (number: number) => void;
+    setChosenCategory: (string: string) => void;
 }
 
 export type Score = {
@@ -21,6 +22,7 @@ export type GameStuffGameScreen = {
     setPlayerTwoScore: (score: number) => void;
     multiplayerEnabled: boolean;
     numberOfQuestions: number;
+    chosenCategory: string;
     resetAll: () => void;
 };
 
