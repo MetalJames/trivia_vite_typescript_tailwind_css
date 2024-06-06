@@ -1,10 +1,9 @@
 import { useEffect, useMemo, useState } from "react";
-import QuestionComponent from "../components/QuestionComponent";
 import { gameScreen } from "../assets";
 // Getting types
 import { GameStuffGameScreen, Question } from "../types/types";
 import { Link, useNavigate } from "react-router-dom";
-import Error from "../components/Error";
+import { Player, ErrorCategory } from "../components"
 
 const Game = (props: GameStuffGameScreen) => {
     const { 
@@ -126,60 +125,36 @@ const Game = (props: GameStuffGameScreen) => {
     const isValidCategory = chosenCategory === "Games" || chosenCategory === "General" || chosenCategory === "IT";
 
     if (!isValidCategory) {
-        return <Error chosenCategory={chosenCategory} />;
+        return <ErrorCategory chosenCategory={chosenCategory} />;
     }
 
     return (
         <div className="flex justify-around items-center h-screen bg-cover bg-center"
             style={{ backgroundImage: `url(${gameScreen})` }}>
             <div className="flex flex-col justify-center items-center bg-white h-full bg-opacity-70 w-full">
-            <div className="flex w-full">
-            <div className="flex flex-col justify-start sm:justify-center h-full w-full">
-                <div className="h-[20vw] w-full flex flex-col justify-center items-center">
-                    <h1 className="text-3xl sm:text-5xl font-bold text-sky-700 mt-5">{playerOneName}</h1>
-                    <p className="font-bold">Your Score: {playerOneScore}</p>
-                </div>
-                {currentPlayerOneQuestion ? (
-                    <div className="flex flex-col justify-center h-full">
-                        <QuestionComponent
+                <div className="flex w-full">
+                    <Player 
+                        playerName={playerOneName} 
+                        playerScore={playerOneScore} 
+                        questions={currentPlayerOneQuestion}
+                        onAnswer={handleAnswerPlayerOne}
+                        multiplayerEnabled={multiplayerEnabled}
+                    />
+                    {multiplayerEnabled && (
+                        <Player 
+                            playerName={playerTwoName} 
+                            playerScore={playerTwoScore} 
+                            questions={currentPlayerTwoQuestion}
+                            onAnswer={handleAnswerPlayerTwo}
                             multiplayerEnabled={multiplayerEnabled}
-                            question={currentPlayerOneQuestion}
-                            onAnswer={handleAnswerPlayerOne}
                         />
-                    </div>
-                ) : (
-                    <div className="flex justify-center">
-                        <h3 className="text-xl sm:text-2xl font-bold text-sky-700 mt-5">No more questions</h3>
-                    </div>
-                )}
-            </div>
-            {multiplayerEnabled && (
-                <div className="flex flex-col justify-start sm:justify-center h-full w-full">
-                    <div className="h-[20vw] w-full flex flex-col justify-center items-center">
-                        <h2 className="text-3xl sm:text-5xl font-bold text-sky-700 mt-5">{playerTwoName}</h2>
-                        <p className="font-bold">Your Score: {playerTwoScore}</p>
-                    </div>
-                    {currentPlayerTwoQuestion ? (
-                        <div className="flex flex-col justify-center h-full">
-                            <QuestionComponent
-                                multiplayerEnabled={multiplayerEnabled}
-                                question={currentPlayerTwoQuestion}
-                                onAnswer={handleAnswerPlayerTwo}
-                            />
-                        </div>
-                    ) : (
-                    <div className="flex justify-center">
-                        <h3 className="text-xl sm:text-2xl font-bold text-sky-700 mt-5">No more questions</h3>
-                    </div>
                     )}
                 </div>
-            )}
-            </div>
-            <Link to="/">
-                <button onClick={handleHomeClick} className="bg-blue-500 lg:hover:bg-blue-700 text-white font-bold py-2 px-4 rounded my-6 transition-all">
-                    Home
-                </button>
-            </Link>
+                <Link to="/">
+                    <button onClick={handleHomeClick} className="bg-blue-500 lg:hover:bg-blue-700 text-white font-bold py-2 px-4 rounded my-6 transition-all">
+                        Home
+                    </button>
+                </Link>
             </div>
         </div>
     );

@@ -1,24 +1,8 @@
 import React from "react";
-import { Question } from "../types/types"; 
+import { QuestionComponentProps } from "../types/types"; 
 
-// type Question = {
-//     _id: string;
-//     QuestionID: string;
-//     Question: string;
-//     AnswerOne: string;
-//     AnswerTwo: string;
-//     AnswerThree: string;
-//     AnswerFour: string;
-//     CorrectAnswer: string;
-// };
-
-type QuestionComponentProps = {
-    question: Question;
-    onAnswer: (answe: string) => void;
-    multiplayerEnabled: boolean;
-};
-
-const QuestionComponent: React.FC<QuestionComponentProps> = ({ question, onAnswer, multiplayerEnabled }) => {
+const Questions: React.FC<QuestionComponentProps> = ({ question, onAnswer, multiplayerEnabled }) => {
+    
     const commonClasses = "bg-blue-500 lg:hover:bg-blue-700 text-white font-bold py-2 px-4 rounded transition-all break-words text-center";
 
     // Determine the specific classes based on multiplayerEnabled
@@ -62,4 +46,4 @@ const QuestionComponent: React.FC<QuestionComponentProps> = ({ question, onAnswe
     );
 };
 
-export default QuestionComponent;
+export default Questions;

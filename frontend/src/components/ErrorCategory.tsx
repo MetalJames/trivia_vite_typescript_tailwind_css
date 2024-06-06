@@ -1,4 +1,4 @@
-const Error = ({ chosenCategory }: { chosenCategory: string }) => (
+const ErrorCategory = ({ chosenCategory }: { chosenCategory: string }) => (
     <div>
         <h1>Error: Invalid category</h1>
         <p>The chosen category "{chosenCategory}" is not recognized.</p>
@@ -6,4 +6,4 @@ const Error = ({ chosenCategory }: { chosenCategory: string }) => (
     </div>
 );
 
-export default Error;
+export default ErrorCategory;

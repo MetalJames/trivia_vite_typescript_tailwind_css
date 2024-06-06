@@ -26,6 +26,20 @@ export type GameStuffGameScreen = {
     resetAll: () => void;
 };
 
+export type PlayerProps = {
+    playerName: string;
+    playerScore: number;
+    questions: Question | null;
+    onAnswer: (selectedAnswer: string) => void;
+    multiplayerEnabled: boolean;
+}
+
+export type QuestionComponentProps = {
+    question: Question;
+    onAnswer: (answe: string) => void;
+    multiplayerEnabled: boolean;
+};
+
 export type CategoryOfQuestions = {
     Games: Question[];
     General: Question[];

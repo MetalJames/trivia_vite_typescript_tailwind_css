@@ -5,6 +5,7 @@ import { Home, Game, Winner } from "./pages"
 import { BrowserRouter, Route, Routes } from "react-router-dom";
 // Getting types
 import { CategoryOfQuestions } from "./types/types";
+import ErrorBoundary from "./components/ErroAppOnRender";
 
 const App: React.FC = () => {
   const [questions, setQuestions] = useState<CategoryOfQuestions[]>([]);
@@ -58,19 +59,22 @@ const App: React.FC = () => {
           <Route 
             path="game" 
             element={
-              <Game 
-                playerOneName={playerOneName} 
-                playerTwoName={playerTwoName} 
-                playerOneScore={playerOneScore} 
-                playerTwoScore={playerTwoScore} 
-                setPlayerOneScore={setPlayerOneScrore}
-                setPlayerTwoScore={setPlayerTwoScrore}
-                multiplayerEnabled={multiplayerEnabled} 
-                questions={questions} 
-                numberOfQuestions={numberOfQuestions}
-                chosenCategory={chosenCategory}
-                resetAll={resetAll}
-              />}
+              <ErrorBoundary>
+                <Game 
+                  playerOneName={playerOneName} 
+                  playerTwoName={playerTwoName} 
+                  playerOneScore={playerOneScore} 
+                  playerTwoScore={playerTwoScore} 
+                  setPlayerOneScore={setPlayerOneScrore}
+                  setPlayerTwoScore={setPlayerTwoScrore}
+                  multiplayerEnabled={multiplayerEnabled} 
+                  questions={questions} 
+                  numberOfQuestions={numberOfQuestions}
+                  chosenCategory={chosenCategory}
+                  resetAll={resetAll}
+                />
+              </ErrorBoundary>
+              }
             />
             <Route 
             path="winner" 
