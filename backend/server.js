@@ -32,7 +32,7 @@ connectDB();
 app.get('/questions', async (req, res) => {
     try {
         const database = client.db('volodymyrruzhak'); // replace with your database name
-        const collection = database.collection('trivia_quiz_game'); // replace with your collection name
+        const collection = database.collection('trivia_quiz_game_extended'); // replace with your collection name
         const questions = await collection.find({}).toArray();
         res.json(questions);
     } catch (err) {

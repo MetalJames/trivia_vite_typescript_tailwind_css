@@ -4,10 +4,10 @@ import { fetchFromAPI, BASE_URL } from "./fetchMongo";
 import { Home, Game, Winner } from "./pages"
 import { BrowserRouter, Route, Routes } from "react-router-dom";
 // Getting types
-import { Question } from "./types/types";
+import { CategoryOfQuestions } from "./types/types";
 
 const App: React.FC = () => {
-  const [questions, setQuestions] = useState<Question[]>([]);
+  const [questions, setQuestions] = useState<CategoryOfQuestions[]>([]);
   const [chosenCategory, setChosenCategory] = useState('General');
   const [playerOneName, setPlayerOneName] = useState('Player One');
   const [playerTwoName, setPlayerTwoName] = useState('Player Two');
@@ -23,6 +23,7 @@ const App: React.FC = () => {
     setPlayerTwoScrore(0);
     setMultiplayerEnabled(false);
     setNumberOfQuestions(5);
+    setChosenCategory('General');
   };
 
   useEffect(() => {

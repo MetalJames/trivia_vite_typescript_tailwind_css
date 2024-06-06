@@ -13,7 +13,7 @@ export type Score = {
 }
 
 export type GameStuffGameScreen = {
-    questions: Question[];
+    questions: CategoryOfQuestions[];
     playerOneName: string;
     playerTwoName: string;
     playerOneScore: number;
@@ -25,6 +25,12 @@ export type GameStuffGameScreen = {
     chosenCategory: string;
     resetAll: () => void;
 };
+
+export type CategoryOfQuestions = {
+    Games: Question[];
+    General: Question[];
+    IT: Question[];
+}
 
 export type Question = {
     _id: string;

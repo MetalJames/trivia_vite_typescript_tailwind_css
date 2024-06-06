@@ -104,6 +104,7 @@ const Home = (props: HomeProps) => {
                                         <option value="General">General</option>
                                         <option value="Games">Games</option>
                                         <option value="IT">IT</option>
+                                        <option value="LOL">LOL</option>
                                     </select>
                                 </div>
                                 {/* Question per Game Section */}

@@ -2,8 +2,9 @@ import { useEffect, useMemo, useState } from "react";
 import QuestionComponent from "../components/QuestionComponent";
 import { gameScreen } from "../assets";
 // Getting types
-import { GameStuffGameScreen } from "../types/types";
+import { GameStuffGameScreen, Question } from "../types/types";
 import { Link, useNavigate } from "react-router-dom";
+import Error from "../components/Error";
 
 const Game = (props: GameStuffGameScreen) => {
     const { 
@@ -21,13 +22,27 @@ const Game = (props: GameStuffGameScreen) => {
     } = props;
 
     const navigate = useNavigate();
-    console.log(chosenCategory);
+
+    const { Games, General, IT } = questions[0];
 
     const [currentQuestionIndexPlayerOne, setCurrentQuestionIndexPlayerOne] = useState(0);
     const [currentQuestionIndexPlayerTwo, setCurrentQuestionIndexPlayerTwo] = useState(0);
 
     const [playerOneQuestions, playerTwoQuestions] = useMemo(() => {
-        const shuffledQuestions = [...questions].sort(() => 0.5 - Math.random());
+
+        let categoryQuestions: Question[] = [];
+
+        if (chosenCategory === "Games") {
+            categoryQuestions = Games;
+        } else if (chosenCategory === "General") {
+            categoryQuestions = General;
+        } else if (chosenCategory === "IT") {
+            categoryQuestions = IT;
+        } else {
+            console.error("Chosen category is not recognized:", chosenCategory);
+        }
+
+        const shuffledQuestions = [...categoryQuestions].sort(() => 0.5 - Math.random());
         const playerOneQuestions = [];
         const playerTwoQuestions = [];
 
@@ -51,7 +66,7 @@ const Game = (props: GameStuffGameScreen) => {
         }
 
         return [playerOneQuestions, playerTwoQuestions];
-    }, [questions, numberOfQuestions, multiplayerEnabled]);
+    }, [chosenCategory, multiplayerEnabled, Games, General, IT, numberOfQuestions]);
 
     const handleAnswerPlayerOne = (selectedAnswer: string) => {
         const currentQuestionPlayerOne = playerOneQuestions[currentQuestionIndexPlayerOne];
@@ -107,6 +122,12 @@ const Game = (props: GameStuffGameScreen) => {
         playerTwoName, 
         playerTwoScore
     ]);
+
+    const isValidCategory = chosenCategory === "Games" || chosenCategory === "General" || chosenCategory === "IT";
+
+    if (!isValidCategory) {
+        return <Error chosenCategory={chosenCategory} />;
+    }
 
     return (
         <div className="flex justify-around items-center h-screen bg-cover bg-center"
