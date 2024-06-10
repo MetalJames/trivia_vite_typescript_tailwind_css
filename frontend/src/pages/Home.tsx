@@ -4,15 +4,16 @@ import { Link } from "react-router-dom";
 // Getting firebase
 import { getTopScores5, getTopScores10, getTopScores15 } from "../firestoreService";
 // Getting types
-import { HomeProps, Score } from "../types/types";
+import { Score } from "../types/types";
+import useGame from "../hooks/useGame";
 
-const Home = (props: HomeProps) => {
+const Home = () => {
 
     const [topScores5, setTopScores5] = useState<Score[]>([]);
     const [topScores10, setTopScores10] = useState<Score[]>([]);
     const [topScores15, setTopScores15] = useState<Score[]>([]);
     
-    const { setPlayerOneName, setPlayerTwoName, setMultiplayerEnabled, multiplayerEnabled, setNumberOfQuestions, setChosenCategory } = props;
+    const { setPlayerOneName, setPlayerTwoName, setMultiplayerEnabled, multiplayerEnabled, setNumberOfQuestions, setChosenCategory } = useGame();
 
     const handlePlayerOneNameChange = (event: React.ChangeEvent<HTMLInputElement>) => {
         setPlayerOneName(event.target.value);

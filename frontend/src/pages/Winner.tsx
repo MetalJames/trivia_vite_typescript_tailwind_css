@@ -4,14 +4,15 @@ import { addScore5, addScore10, addScore15 } from "../firestoreService";
 import { winnerScreen } from "../assets";
 // Getting types
 import { GameStuffWinnerScreen } from "../types/types";
+import useGame from "../hooks/useGame";
 
-type ResetAll = {
-    resetAll: () => void;
-}
+// type ResetAll = {
+//     resetAll: () => void;
+// }
 
-const Winner = (props: ResetAll) => {
+const Winner = () => {
 
-    const { resetAll } = props;
+    const { resetAll } = useGame();
 
     const location = useLocation();
 

@@ -1,3 +1,24 @@
+// Define the types for entire context
+export type GameContextType =  {
+    playerOneName: string;
+    setPlayerOneName: (name: string) => void;
+    playerTwoName: string;
+    setPlayerTwoName: (name: string) => void;
+    playerOneScore: number;
+    setPlayerOneScore: (score: number) => void;
+    playerTwoScore: number;
+    setPlayerTwoScore: (score: number) => void;
+    multiplayerEnabled: boolean;
+    setMultiplayerEnabled: (enabled: boolean) => void;
+    numberOfQuestions: number;
+    setNumberOfQuestions: (num: number) => void;
+    chosenCategory: string;
+    setChosenCategory: (category: string) => void;
+    questions: CategoryOfQuestions[];
+    setQuestions: (questions: CategoryOfQuestions[]) => void;
+    resetAll: () => void;
+}
+
 export type HomeProps = {
     setPlayerOneName: (name: string) => void;
     setPlayerTwoName: (name: string) => void;

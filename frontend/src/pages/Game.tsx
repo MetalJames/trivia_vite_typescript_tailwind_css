@@ -1,11 +1,12 @@
 import { useEffect, useMemo, useState } from "react";
 import { gameScreen } from "../assets";
 // Getting types
-import { GameStuffGameScreen, Question } from "../types/types";
+import { Question } from "../types/types";
 import { Link, useNavigate } from "react-router-dom";
 import { Player, ErrorCategory } from "../components"
+import useGame from "../hooks/useGame";
 
-const Game = (props: GameStuffGameScreen) => {
+const Game = () => {
     const { 
         questions, 
         playerOneName, 
@@ -18,7 +19,7 @@ const Game = (props: GameStuffGameScreen) => {
         numberOfQuestions,
         chosenCategory,
         resetAll,
-    } = props;
+    } = useGame();
 
     const navigate = useNavigate();
 
