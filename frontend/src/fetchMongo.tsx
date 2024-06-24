@@ -1,8 +1,8 @@
 // api.ts
 import axios from "axios";
 
-export const BASE_URL = "http://localhost:8000/questions";
-//export const BASE_URL = "https://trivia-vite-typescript-tailwind-css.vercel.app/api/question";
+//export const BASE_URL = "http://localhost:8000/questions";
+export const BASE_URL = "https://trivia-vite-typescript-tailwind-css.onrender.com/questions";
 
 export const fetchFromAPI = async (url: string) => {
     try {
