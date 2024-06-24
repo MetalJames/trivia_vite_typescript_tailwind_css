@@ -1,10 +1,20 @@
 const express = require('express');
-const cors = require('cors'); // Import the cors package
+const cors = require('cors');
 const { client, connectDB } = require('./connectDB');
 
 const app = express();
 app.use(express.json());
-app.use(cors()); // Use the cors middleware
+
+const allowedOrigins = ['https://your-frontend.vercel.app']; // Replace with your frontend URL(s)
+app.use(cors({
+    origin: function (origin, callback) {
+        if (!origin || allowedOrigins.indexOf(origin) !== -1) {
+            callback(null, true);
+        } else {
+            callback(new Error('Not allowed by CORS'));
+        }
+    }
+}));
 
 app.get('/questions', async (req, res) => {
     await connectDB();

@@ -1,24 +1,20 @@
-const { MongoClient, ServerApiVersion } = require('mongodb');
-require('dotenv').config();
+import axios from "axios";
 
-const uri = process.env.MONGODB_URI;
-const client = new MongoClient(uri, {
-    serverApi: {
-        version: ServerApiVersion.v1,
-        strict: true,
-        deprecationErrors: true,
-    }
-});
+// Update BASE_URL to your deployed backend URL
+export const BASE_URL = "https://trivia-vite-typescript-tailwind-css.vercel.app/api/questions";
 
-async function connectDB() {
+export const fetchFromAPI = async (url) => {
     try {
-        if (!client.isConnected()) {
-            await client.connect();
-            console.log("Connected to MongoDB!");
+        const { data } = await axios.get(url);
+        return data;
+    } catch (error) {
+        // Check if the error is an AxiosError
+        if (axios.isAxiosError(error)) {
+            // Handle Axios errors (e.g., network error, timeout)
+            throw new Error("Network error occurred. Please try again later.");
+        } else {
+            // Handle other types of errors
+            throw new Error("An error occurred while fetching data.");
         }
-    } catch (err) {
-        console.error(err);
     }
-}
-
-module.exports = { client, connectDB };
+};
