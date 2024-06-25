@@ -15,7 +15,7 @@ const Questions: React.FC<QuestionComponentProps> = ({ question, onAnswer, multi
 
     return (
         <div className="flex flex-col items-center">
-            <h2 className="text-lg sm:text-2xl font-bold mb-8 w-[70%] bg-white bg-opacity-70 rounded-md p-3 text-center h-28 flex justify-center items-center">{question.Question}</h2>
+            <h2 className="text-lg sm:text-xl font-bold mb-8 w-[70%] bg-white bg-opacity-70 rounded-md p-3 text-center h-28 flex justify-center items-center">{question.Question}</h2>
             <div className="grid grid-cols-2 gap-7">
                 <button
                     className={`${commonClasses} ${sizeClasses}`}

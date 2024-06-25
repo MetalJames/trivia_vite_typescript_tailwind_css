@@ -57,9 +57,9 @@ const Home = () => {
                     <div className='flex flex-col justify-center items-center bg-white bg-opacity-90 rounded-md'>
                         <div className="flex flex-col justify-around items-center w-[80vw] sm:w-[40vw] h-auto sm:h-[250px] p-5 sm:p-auto">
                             <div className="flex flex-col w-full pb-5 sm:pb-0">
-                                <div className="flex flex-col sm:flex-row justify-around items-center">
+                                <div className="flex flex-col sm:flex-row justify-between sm:justify-around items-center">
                                     {/* Player One section */}
-                                    <div className="w-48">
+                                    <div className="w-40 md:w-48">
                                         <h3 className="pb-1">Player One</h3>
                                         <input 
                                             type="text" 
@@ -69,7 +69,7 @@ const Home = () => {
                                         />
                                     </div>
                                     {/* Player Two Section */}
-                                    <div className="w-48 hidden sm:block">
+                                    <div className="w-40 md:w-48 hidden sm:block">
                                         <h3 className="pb-1">Player Two</h3>
                                         <input 
                                             type="text" 
@@ -94,7 +94,7 @@ const Home = () => {
                             </div>
                             <div className="flex flex-col sm:flex-row w-full justify-around items-center">
                                 {/* Category Section */}
-                                <div className="w-52">
+                                <div className="w-40 md:w-48">
                                     <h3 className="pb-1">Category of Questions</h3>
                                     <select 
                                         name="category" 
@@ -108,7 +108,7 @@ const Home = () => {
                                     </select>
                                 </div>
                                 {/* Question per Game Section */}
-                                <div className="w-52">
+                                <div className="w-40 md:w-48">
                                     <h3 className="pb-1">Questions per Game</h3>
                                     <select 
                                         name="numberOfQuestions" 
