@@ -91,6 +91,12 @@ const Game = () => {
         resetAll();
     };
 
+    //for testing purposes only
+    useEffect(() => {
+        console.log('Questions:', questions);
+        console.log('Chosen Category:', chosenCategory);
+    }, [questions, chosenCategory]);
+
     useEffect(() => {
         if (
             currentQuestionIndexPlayerOne >= playerOneQuestions.length &&

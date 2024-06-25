@@ -45,7 +45,7 @@ const Home = () => {
             setTopScores15(scores15);
         };
         fetchScores();
-    })
+    });
 
     return (
         <div className="flex flex-col justify-center h-screen bg-cover bg-center"
