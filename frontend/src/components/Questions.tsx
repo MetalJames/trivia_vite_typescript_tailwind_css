@@ -3,7 +3,7 @@ import { QuestionComponentProps } from "../types/types";
 
 const Questions: React.FC<QuestionComponentProps> = ({ question, onAnswer, multiplayerEnabled }) => {
     
-    const commonClasses = "bg-blue-500 lg:hover:bg-blue-700 text-white font-bold py-2 px-4 rounded transition-all break-words text-center";
+    const commonClasses = "bg-blue-500 hover:bg-blue-500 xl:hover:bg-blue-700 text-white font-bold py-2 px-4 rounded transition-all break-words text-center";
 
     // Determine the specific classes based on multiplayerEnabled
     const sizeClasses = multiplayerEnabled

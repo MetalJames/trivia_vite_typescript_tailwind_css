@@ -55,26 +55,27 @@ const Home = () => {
                 <div className="flex flex-col justify-around sm:justify-between items-center h-[80%] sm:h-[60%]">
                     <h1 className="text-4xl sm:text-7xl font-bold text-sky-700">Trivia Quiz Game</h1>
                     <div className='flex flex-col justify-center items-center bg-white bg-opacity-90 rounded-md'>
-                        <div className="flex flex-col justify-around items-center w-[80vw] sm:w-[40vw] h-auto sm:h-[250px] p-5 sm:p-auto">
+                        <div className="flex flex-col justify-around items-center w-[80vw] md:w-[60vw] lg:w-[40vw] h-auto sm:h-[250px] p-5 sm:p-auto">
                             <div className="flex flex-col w-full pb-5 sm:pb-0">
                                 <div className="flex flex-col sm:flex-row justify-between sm:justify-around items-center">
                                     {/* Player One section */}
-                                    <div className="w-40 md:w-48">
-                                        <h3 className="pb-1">Player One</h3>
+                                    <div className="w-full sm:w-48 flex flex-col items-center">
+                                        <h3 className="pb-1 hidden sm:block">Player One</h3>
+                                        <h3 className="pb-1 block sm:hidden">Player</h3>
                                         <input 
                                             type="text" 
                                             placeholder='Enter Your Name'
-                                            className="border border-gray-300 focus:border-blue-500 focus:outline-none rounded-md px-3 py-2"
+                                            className="border border-gray-300 focus:border-blue-500 focus:outline-none rounded-md px-3 py-2 w-[85%] xl:w-full"
                                             onChange={handlePlayerOneNameChange}
                                         />
                                     </div>
                                     {/* Player Two Section */}
-                                    <div className="w-40 md:w-48 hidden sm:block">
+                                    <div className="w-48 hidden sm:flex flex-col items-center">
                                         <h3 className="pb-1">Player Two</h3>
                                         <input 
                                             type="text" 
                                             placeholder='Enter Your Name'
-                                            className="border border-gray-300 focus:border-blue-500 focus:outline-none rounded-md px-3 py-2"
+                                            className="border border-gray-300 focus:border-blue-500 focus:outline-none rounded-md px-3 py-2 w-[85%] xl:w-full"
                                             disabled={!multiplayerEnabled}
                                             onChange={handlePlayerTwoNameChange}
                                         />
@@ -94,12 +95,12 @@ const Home = () => {
                             </div>
                             <div className="flex flex-col sm:flex-row w-full justify-around items-center">
                                 {/* Category Section */}
-                                <div className="w-40 md:w-48">
-                                    <h3 className="pb-1">Category of Questions</h3>
+                                <div className="w-full sm:w-48 flex flex-col items-center">
+                                    <h3 className="pb-1 text-center">Category of Questions</h3>
                                     <select 
                                         name="category" 
                                         id="category" 
-                                        className="border border-gray-300 focus:border-blue-500 focus:outline-none rounded-md px-3 py-2 w-full"
+                                        className="border border-gray-300 focus:border-blue-500 focus:outline-none rounded-md px-3 py-2 w-[85%] xl:w-full"
                                         onChange={handleCategoryChange}
                                         >
                                         <option value="General">General</option>
@@ -108,12 +109,12 @@ const Home = () => {
                                     </select>
                                 </div>
                                 {/* Question per Game Section */}
-                                <div className="w-40 md:w-48">
-                                    <h3 className="pb-1">Questions per Game</h3>
+                                <div className="w-full sm:w-48 flex flex-col items-center">
+                                    <h3 className="pb-1 text-center">Questions per Game</h3>
                                     <select 
                                         name="numberOfQuestions" 
                                         id="numberOfQuestions" 
-                                        className="border border-gray-300 focus:border-blue-500 focus:outline-none rounded-md px-3 py-2 w-full"
+                                        className="border border-gray-300 focus:border-blue-500 focus:outline-none rounded-md px-3 py-2 w-[85%] xl:w-full"
                                         onChange={handleNumberOfQuestionsChange}
                                     >
                                         <option value="5">5 Questions</option>
