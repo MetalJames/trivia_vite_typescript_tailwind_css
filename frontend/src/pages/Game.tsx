@@ -139,7 +139,7 @@ const Game = () => {
         <div className="flex justify-around items-center h-screen bg-cover bg-center"
             style={{ backgroundImage: `url(${gameScreen})` }}>
             <div className="flex flex-col justify-center items-center bg-white h-full bg-opacity-70 w-full">
-                <div className="flex w-full">
+                <div className="flex w-full h-full">
                     <Player 
                         playerName={playerOneName} 
                         playerScore={playerOneScore} 
