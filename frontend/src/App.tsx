@@ -28,10 +28,9 @@ const App: React.FC = () => {
         console.error("Error fetching questions:", error);
       }
     };
-    setTimeout(fetchData, 500);
+    fetchData();
   }, [setQuestions]);
 
-  if (!questions.length) return <h1>Loading...</h1>;
   return (
     <BrowserRouter>
       <Routes>
