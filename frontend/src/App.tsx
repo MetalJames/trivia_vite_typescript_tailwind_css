@@ -15,7 +15,9 @@ const RootApp: React.FC = () => (
 
 const App: React.FC = () => {
 
-  const { setQuestions } = useGame();
+  const { questions, setQuestions } = useGame();
+
+  console.log(questions)
 
   useEffect(() => {
     const fetchData = async () => {
@@ -26,10 +28,10 @@ const App: React.FC = () => {
         console.error("Error fetching questions:", error);
       }
     };
-
-    fetchData();
+    setTimeout(fetchData, 500);
   }, [setQuestions]);
 
+  if (!questions.length) return <h1>Loading...</h1>;
   return (
     <BrowserRouter>
       <Routes>
