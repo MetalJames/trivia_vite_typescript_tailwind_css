@@ -40,6 +40,13 @@ app.get('/questions', async (req, res) => {
     }
 });
 
+// Cron job route
+app.get('/cron-job', (req, res) => {
+    // Perform cron job tasks
+    // Return minimal output
+    res.send('OK'); // Or any minimal status message
+});
+
 app.listen(port, () => {
     console.log(`Server running on port ${port}`);
 });
