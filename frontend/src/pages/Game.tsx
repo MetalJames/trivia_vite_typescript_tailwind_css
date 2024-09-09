@@ -5,6 +5,7 @@ import { Question } from "../types/types";
 import { Link, useNavigate } from "react-router-dom";
 import { Player, ErrorCategory } from "../components"
 import useGame from "../hooks/useGame";
+import ModalAnswer from "../components/ModalAnswer";
 
 const Game = () => {
     const { 
@@ -27,6 +28,12 @@ const Game = () => {
 
     const [currentQuestionIndexPlayerOne, setCurrentQuestionIndexPlayerOne] = useState(0);
     const [currentQuestionIndexPlayerTwo, setCurrentQuestionIndexPlayerTwo] = useState(0);
+
+    //modal confirmation
+    const [modalAnswerPlayerOne, setModalAnswerPlayerOne] = useState(false);
+    const [modalAnswerPlayerTwo, setModalAnswerPlayerTwo] = useState(false);
+    const [isCorrectPlayerOne, setIsCorrectPlayerOne] = useState<boolean | null>(null);
+    const [isCorrectPlayerTwo, setIsCorrectPlayerTwo] = useState<boolean | null>(null);
 
     const [playerOneQuestions, playerTwoQuestions] = useMemo(() => {
 
@@ -70,17 +77,36 @@ const Game = () => {
 
     const handleAnswerPlayerOne = (selectedAnswer: string) => {
         const currentQuestionPlayerOne = playerOneQuestions[currentQuestionIndexPlayerOne];
-        if (currentQuestionPlayerOne?.CorrectAnswer === selectedAnswer) {
-            setPlayerOneScore(playerOneScore + 1);
-        }
+
+        const correct = currentQuestionPlayerOne?.CorrectAnswer === selectedAnswer;
+        setIsCorrectPlayerOne(correct);
+
+        //if (currentQuestionPlayerOne?.CorrectAnswer === selectedAnswer) {
+            setPlayerOneScore(correct ? playerOneScore + 1 : playerOneScore);
+
+            setModalAnswerPlayerOne(true);
+            setTimeout(() => {
+                setModalAnswerPlayerOne(false);
+                setIsCorrectPlayerOne(null);
+            }, 2000)
+        //}
         setCurrentQuestionIndexPlayerOne(currentQuestionIndexPlayerOne + 1);
     };
 
     const handleAnswerPlayerTwo = (selectedAnswer: string) => {
         const currentQuestionPlayerTwo = playerTwoQuestions[currentQuestionIndexPlayerTwo];
-        if (currentQuestionPlayerTwo?.CorrectAnswer === selectedAnswer) {
-            setPlayerTwoScore(playerTwoScore + 1);
-        }
+
+        const correct2 = currentQuestionPlayerTwo?.CorrectAnswer === selectedAnswer;
+        setIsCorrectPlayerTwo(correct2);
+        //if (currentQuestionPlayerTwo?.CorrectAnswer === selectedAnswer) {
+
+            setPlayerTwoScore(correct2 ? playerTwoScore + 1 : playerTwoScore);
+            setModalAnswerPlayerTwo(true);
+            setTimeout(() => {
+                setModalAnswerPlayerTwo(false);
+                setIsCorrectPlayerTwo(null);
+            }, 2000)
+        //}
         setCurrentQuestionIndexPlayerTwo(currentQuestionIndexPlayerTwo + 1);
     };
 
@@ -102,18 +128,20 @@ const Game = () => {
             currentQuestionIndexPlayerOne >= playerOneQuestions.length &&
             (!multiplayerEnabled || currentQuestionIndexPlayerTwo >= playerTwoQuestions.length)
         ) {
-            navigate("/winner", {
-                state: {
-                    playerOneName,
-                    playerOneScore,
-                    playerTwoName,
-                    playerTwoScore,
-                    multiplayerEnabled,
-                    numberOfQuestions,
-                    playerOneQuestionsAvailable: playerOneQuestions.length,
-                    playerTwoQuestionsAvailable: playerTwoQuestions.length,
-                }
-            });
+            setTimeout(() => {            
+                navigate("/winner", {
+                    state: {
+                        playerOneName,
+                        playerOneScore,
+                        playerTwoName,
+                        playerTwoScore,
+                        multiplayerEnabled,
+                        numberOfQuestions,
+                        playerOneQuestionsAvailable: playerOneQuestions.length,
+                        playerTwoQuestionsAvailable: playerTwoQuestions.length,
+                    }
+                });
+            }, 2250);
         }
     }, [
         currentQuestionIndexPlayerOne, 
@@ -147,6 +175,19 @@ const Game = () => {
                         onAnswer={handleAnswerPlayerOne}
                         multiplayerEnabled={multiplayerEnabled}
                     />
+                    {!multiplayerEnabled &&
+                        <div>{modalAnswerPlayerOne && <ModalAnswer message={isCorrectPlayerOne ? "You are right!" : "Nope, wrong one."} />}</div>
+                    }
+                    {multiplayerEnabled &&                     
+                        <div>
+                            {modalAnswerPlayerOne && isCorrectPlayerOne !== null && (
+                            <ModalAnswer message={isCorrectPlayerOne ? `${playerOneName} is right!` : `${playerOneName} is wrong.`} />
+                        )}
+                            {multiplayerEnabled && modalAnswerPlayerTwo && (
+                            <ModalAnswer message={isCorrectPlayerTwo ? `${playerTwoName} is right!` : `${playerTwoName} is wrong.`} />
+                        )}
+                        </div>
+                    }
                     {multiplayerEnabled && (
                         <Player 
                             playerName={playerTwoName} 

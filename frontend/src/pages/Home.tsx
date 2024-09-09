@@ -135,7 +135,7 @@ const Home = () => {
                     </Link>
                 </div>
                 {/* firebase scores */}
-                <div className="flex flex-col sm:flex-row justify-around  pt-5 h-[20%] w-[70%] sm:w-full m-auto">
+                <div className="flex flex-col sm:flex-row justify-around  pt-5 pb-5 sm:h-[20%] h-auto w-[70%] sm:w-full m-auto">
                     {/* Top Scores 5 Questions */}
                     <div>
                         <h1 className="font-bold text-sky-700 bg-white bg-opacity-70 rounded px-2 text-center">Top Scores 5 Questions</h1>
@@ -147,7 +147,7 @@ const Home = () => {
                     </div>
                     {/* Top Scores 10 Questions */}
                     <div>
-                        <h1 className="font-bold text-sky-700 bg-white bg-opacity-70 rounded px-2 text-center">Top Scores 10 Questions</h1>
+                        <h1 className="font-bold text-sky-700 bg-white bg-opacity-70 rounded px-2 text-center sm:mt-0 mt-5">Top Scores 10 Questions</h1>
                         <ul className="bg-white bg-opacity-50 text-center">
                             {topScores10.map((score, index) => (
                                 <li key={index}>{score.name}: {score.score}</li>
@@ -156,7 +156,7 @@ const Home = () => {
                     </div>
                     {/* Top Scores 15 Questions */}
                     <div>
-                        <h1 className="font-bold text-sky-700 bg-white bg-opacity-70 rounded px-2 text-center">Top Scores 15 Questions</h1>
+                        <h1 className="font-bold text-sky-700 bg-white bg-opacity-70 rounded px-2 text-center sm:mt-0 mt-5">Top Scores 15 Questions</h1>
                         <ul className="bg-white bg-opacity-50 text-center">
                             {topScores15.map((score, index) => (
                                 <li key={index}>{score.name}: {score.score}</li>
