@@ -36,25 +36,25 @@ app.get('/questions', async (req, res) => {
         const questions = await collection.find({}).toArray();
 
         if (questions.length > 0) {
-            let questions = questionsArray[0]; // Assuming only one document stores all categories
-            const { _id, ...categories } = questions; // Remove _id from the response
+            let questionsData = questions[0]; // Use correct variable name
+            const { _id, ...categories } = questionsData; // Remove _id from the response
 
             // Sort keys so "General" always comes first
-            const sortedCategories = Object.keys(categories).sort((a, b) => {
-                if (a === "General") return -1;
-                if (b === "General") return 1;
-                return a.localeCompare(b); // Sort alphabetically otherwise
-            }).reduce((acc, key) => {
-                acc[key] = categories[key];
-                return acc;
-            }, {});
+            const sortedCategories = Object.keys(categories)
+                .sort((a, b) => {
+                    if (a === "General") return -1;
+                    if (b === "General") return 1;
+                    return a.localeCompare(b); // Sort alphabetically otherwise
+                })
+                .reduce((acc, key) => {
+                    acc[key] = categories[key];
+                    return acc;
+                }, {});
 
-            res.json(sortedCategories);
+            res.json({ _id, ...sortedCategories });  // Ensure original format
         } else {
             res.status(404).json({ error: "No questions found in the database." });
         }
-
-        // res.json(questions);
     } catch (err) {
         res.status(500).send(err.message);
     }
