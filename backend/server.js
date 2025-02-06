@@ -34,7 +34,27 @@ app.get('/questions', async (req, res) => {
         const database = client.db('volodymyrruzhak'); // replace with your database name
         const collection = database.collection('trivia_quiz_game_extended'); // replace with your collection name
         const questions = await collection.find({}).toArray();
-        res.json(questions);
+
+        if (questionsArray.length > 0) {
+            let questions = questionsArray[0]; // Assuming only one document stores all categories
+            const { _id, ...categories } = questions; // Remove _id from the response
+
+            // Sort keys so "General" always comes first
+            const sortedCategories = Object.keys(categories).sort((a, b) => {
+                if (a === "General") return -1;
+                if (b === "General") return 1;
+                return a.localeCompare(b); // Sort alphabetically otherwise
+            }).reduce((acc, key) => {
+                acc[key] = categories[key];
+                return acc;
+            }, {});
+
+            res.json(sortedCategories);
+        } else {
+            res.json({});
+        }
+
+        // res.json(questions);
     } catch (err) {
         res.status(500).send(err.message);
     }
