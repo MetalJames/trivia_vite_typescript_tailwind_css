@@ -51,7 +51,7 @@ app.get('/questions', async (req, res) => {
 
             res.json(sortedCategories);
         } else {
-            res.json({});
+            res.status(404).json({ error: "No questions found in the database." });
         }
 
         // res.json(questions);
