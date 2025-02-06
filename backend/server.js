@@ -35,7 +35,7 @@ app.get('/questions', async (req, res) => {
         const collection = database.collection('trivia_quiz_game_extended'); // replace with your collection name
         const questions = await collection.find({}).toArray();
 
-        if (questionsArray.length > 0) {
+        if (questions.length > 0) {
             let questions = questionsArray[0]; // Assuming only one document stores all categories
             const { _id, ...categories } = questions; // Remove _id from the response
 
