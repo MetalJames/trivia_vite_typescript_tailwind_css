@@ -1,7 +1,7 @@
-import Questions from "./Questions";
-import { PlayerProps } from "../types/types";
+import { Questions, NoMoreQuestions } from "..";
+import { PlayerProps } from "../../types/types";
 
-const Player: React.FC<PlayerProps> = (props) => {
+export const Player = (props: PlayerProps) => {
 
     const { playerName, playerScore, questions, onAnswer, multiplayerEnabled } = props;
 
@@ -19,13 +19,7 @@ const Player: React.FC<PlayerProps> = (props) => {
                             multiplayerEnabled={multiplayerEnabled}
                         />
                     </div>
-                ) : (
-                    <div className="flex justify-center">
-                        <h3 className="text-xl sm:text-2xl font-bold text-sky-700 mt-5">No more questions</h3>
-                    </div>
-                )}
+                ) : (<NoMoreQuestions />)}
             </div>
     )
-}
-
-export default Player
+};

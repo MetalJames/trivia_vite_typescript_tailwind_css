@@ -1,3 +1,3 @@
-export { default as Home } from "./Home";
-export { default as Game } from "./Game";
-export { default as Winner } from "./Winner";
+export { Home } from "./Home";
+export { Game } from "./Game";
+export { Winner } from "./Winner";

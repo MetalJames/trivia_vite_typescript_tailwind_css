@@ -1,27 +1,24 @@
 import { Link, useLocation } from "react-router-dom";
-// Updating Solo Game Score to FireBase
-import { addScore5, addScore10, addScore15 } from "../firestoreService";
+import { addScore5, addScore10, addScore15 } from "../services/firestoreService";
 import { winnerScreen } from "../assets";
-// Getting types
 import { GameStuffWinnerScreen } from "../types/types";
 import useGame from "../hooks/useGame";
 
-// type ResetAll = {
-//     resetAll: () => void;
-// }
+const getWinner = (playerOneName: string, playerOneScore: number, playerTwoName: string, playerTwoScore: number) => {
+    if (playerOneScore > playerTwoScore) return playerOneName;
+    if (playerOneScore < playerTwoScore) return playerTwoName;
+    return "It's a tie!";
+};
 
-const Winner = () => {
-
-    const { resetAll } = useGame();
-
+export const Winner = () => {
+    const { actions } = useGame();
     const location = useLocation();
-
     const { playerOneName, playerTwoName, playerOneScore, playerTwoScore, multiplayerEnabled, numberOfQuestions } = location.state as GameStuffWinnerScreen;
 
-    const winner = playerOneScore > playerTwoScore ? playerOneName : playerOneScore < playerTwoScore ? playerTwoName : 'It\'s a tie';
+    const winner = getWinner(playerOneName, playerOneScore, playerTwoName, playerTwoScore);
 
     const handleHomeClick = () => {
-        resetAll();
+        actions.resetGame();
         if (!multiplayerEnabled) {
             if (numberOfQuestions === 5) {
                 addScore5(playerOneName, playerOneScore);
@@ -52,7 +49,7 @@ const Winner = () => {
                 ) : (
                     <div className="flex flex-col items-center justify-between h-[20%]">
                         <div className="flex flex-col h-[20%] justify-center items-center">
-                            <h1 className="text-3xl sm:text-4xl font-bold text-sky-700">You Win</h1>
+                            <h1 className="text-3xl sm:text-4xl font-bold text-sky-700 pb-4">Game Over</h1>
                             <h1 className="sm:text-3xl font-bold text-sky-700">{playerOneName}</h1>
                             <h2 className="text-2xl mt-4 font-bold text-sky-700">Your Score: {playerOneScore}</h2>
                         </div>
@@ -69,6 +66,4 @@ const Winner = () => {
             </div>
         </div>
     )
-}
-
-export default Winner
+};

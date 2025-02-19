@@ -1,61 +1,39 @@
-import React, { useEffect } from "react";
-// Fetching MongoDB
-import { fetchFromAPI, BASE_URL } from "./fetchMongo";
-import { Home, Game, Winner } from "./pages"
-import { BrowserRouter, Route, Routes } from "react-router-dom";
-import ErrorBoundary from "./components/ErroAppOnRender";
-import { GameProvider } from "./context/GameContext";
+import { useCallback, useEffect, useState } from "react";
+import { fetchFromAPI, BASE_URL } from "./services/fetchMongo";
 import useGame from "./hooks/useGame";
+import { AppRoutes } from "./routes";
+import { ErrorBoundary } from "./components/";
 
-const RootApp: React.FC = () => (
-  <GameProvider>
-    <App />
-  </GameProvider>
-);
+const App = () => {
 
-const App: React.FC = () => {
+  const { actions } = useGame();
+  const [loading, setLoading] = useState(true);
 
-  const { questions, setQuestions } = useGame();
-
-  console.log(questions)
+  const fetchData = useCallback(async () => {
+    try {
+      setLoading(true);
+      const data = await fetchFromAPI(BASE_URL);
+      actions.setQuestions(data);
+    } catch (error) {
+      console.error("Error fetching questions:", error);
+    } finally {
+      setLoading(false);
+    }
+  }, [actions]);
 
   useEffect(() => {
-    const fetchData = async () => {
-      try {
-        const data = await fetchFromAPI(BASE_URL);
-        setQuestions(data);
-      } catch (error) {
-        console.error("Error fetching questions:", error);
-      }
-    };
     fetchData();
-  }, [setQuestions]);
+  }, [fetchData]);
+
+  if (loading) {
+    return <div className="flex justify-center items-center h-screen">Loading...</div>;
+  }
 
   return (
-    <BrowserRouter>
-      <Routes>
-        <Route 
-          path="/" 
-          element={
-            <Home />}
-          />
-        <Route 
-          path="game" 
-          element={
-            <ErrorBoundary>
-              <Game 
-                />
-            </ErrorBoundary>
-            }
-          />
-          <Route 
-          path="winner" 
-          element={
-            <Winner />}
-          />
-      </Routes>
-    </BrowserRouter>
+    <ErrorBoundary>
+      <AppRoutes />
+    </ErrorBoundary>
   );
 };
 
-export default RootApp;
+export default App;

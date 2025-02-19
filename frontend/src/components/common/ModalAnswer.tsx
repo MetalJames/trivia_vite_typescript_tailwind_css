@@ -2,7 +2,7 @@ type ModalProps = {
     message: string
 }
 
-const ModalAnswer = ({ message }: ModalProps) => {
+export const ModalAnswer = ({ message }: ModalProps) => {
     return (
         <div className="fixed inset-0 flex items-center justify-center z-40">
             <div className="bg-white rounded-lg p-6 shadow-lg z-50">
@@ -12,5 +12,3 @@ const ModalAnswer = ({ message }: ModalProps) => {
         </div>
     );
 };
-
-export default ModalAnswer;
