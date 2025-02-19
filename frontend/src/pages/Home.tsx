@@ -5,8 +5,10 @@ import { PlayerSelection, GameOptions, TopScores } from "../components/";
 
 export const Home = () => {
     const { state, actions } = useGame();
-    const { multiplayerEnabled } = state;
+    const { multiplayerEnabled, questions } = state;
     const { setPlayerOneName, setPlayerTwoName, setMultiplayerEnabled, setNumberOfQuestions, setChosenCategory } = actions;
+
+    const isQuestionsAvailable = Object.keys(questions).length > 0;
 
     return (
         <div className="flex flex-col justify-center h-screen bg-cover bg-center"
@@ -29,9 +31,16 @@ export const Home = () => {
                             />
                         </div>
                     </div>
+                    {!isQuestionsAvailable && (
+                        <p className="text-red-600 font-semibold">
+                            Questions were not fetched. Try refreshing the page in 1 minute.
+                        </p>
+                    )}
                     <Link to="game">
                         <button 
-                            className="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded transition-all"
+                            className={`text-white font-bold py-2 px-4 rounded transition-all 
+                                ${isQuestionsAvailable ? "bg-blue-500 hover:bg-blue-700" : "bg-gray-400 cursor-not-allowed"}`}
+                            disabled={!isQuestionsAvailable}
                         >
                             Start the Game
                         </button>
