@@ -3,7 +3,7 @@ import cors from "cors";
 import dotenv from "dotenv";
 import { connectDB } from "./config/db";
 import questionRoutes from "./routes/questions";
-// import cronRoutes from "./routes/cron";
+import cronRoutes from "./routes/cron";
 
 dotenv.config();
 
@@ -16,7 +16,7 @@ app.use(express.json());
 connectDB();
 
 app.use("/questions", questionRoutes);
-// app.use("/cron-job", cronRoutes);
+app.use("/cron-job", cronRoutes);
 
 app.listen(port, () => {
     console.log(`Server running on port ${port}`);
